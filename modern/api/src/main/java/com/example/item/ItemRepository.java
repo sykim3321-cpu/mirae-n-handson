@@ -2,12 +2,16 @@ package com.example.item;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-public interface ItemRepository extends JpaRepository<Item, Integer> {
+public interface ItemRepository extends JpaRepository<Item, Integer>, JpaSpecificationExecutor<Item> {
 
     /** 단건 조회 — 단원 · 태그를 함께 가져온다(OSIV 꺼져 있음). */
     @EntityGraph(attributePaths = {"unit", "tags"})
@@ -23,4 +27,12 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     List<Item> findByUnitCodeAndStatus(@Param("unitCode") String unitCode, @Param("status") String status);
 
     long countByUnitIdAndStatus(Integer unitId, String status);
+
+    /**
+     * 검색 조건 + 페이지 조회 — 단원을 함께 가져온다.
+     * 태그까지 fetch join 하면 페이지를 메모리에서 자르므로(HHH90003004) 태그는 트랜잭션 안에서 지연 로딩한다.
+     */
+    @Override
+    @EntityGraph(attributePaths = {"unit"})
+    Page<Item> findAll(Specification<Item> spec, Pageable pageable);
 }

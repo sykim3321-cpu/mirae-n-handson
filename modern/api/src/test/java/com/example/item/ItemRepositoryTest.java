@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 /** 저장소 슬라이스 — H2(MariaDB 모드)에 실제 SQL 을 날린다. */
@@ -79,5 +82,17 @@ class ItemRepositoryTest {
         assertThat(itemRepository.countByUnitIdAndStatus(fraction.getId(), ItemStatus.ACTIVE)).isEqualTo(3);
         assertThat(itemRepository.countByUnitIdAndStatus(fraction.getId(), ItemStatus.DELETED)).isEqualTo(1);
         assertThat(unitRepository.findByCode("M5-3")).isPresent();
+    }
+
+    @Test
+    @DisplayName("findAll(Specification, Pageable): 조건 · 페이지 · 정렬이 SQL 에 걸리고 단원이 함께 로드된다")
+    void findAllWithSpecificationLoadsUnit() {
+        Page<Item> page = itemRepository.findAll(
+            ItemSearchSpecifications.publicOnly(),
+            PageRequest.of(0, 2, Sort.by(Sort.Order.desc("level"), Sort.Order.asc("id"))));
+
+        assertThat(page.getTotalElements()).isEqualTo(4);
+        assertThat(page.getContent()).extracting(Item::getTitle).containsExactly("난이도 5 분수", "분수 문장제");
+        assertThat(page.getContent()).allSatisfy(item -> assertThat(Hibernate.isInitialized(item.getUnit())).isTrue());
     }
 }
