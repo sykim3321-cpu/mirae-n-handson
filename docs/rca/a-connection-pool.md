@@ -1,5 +1,13 @@
 # RCA — a-connection-pool (2026-09-16)
 
+## 요약
+
+- **언제**: 2026-09-16 14:37:52 KST 에 내부 첫 신호(커넥션 leak WARN)가 찍혔습니다. 사용자 영향은 **14:40:52 ~ 14:51:47(약 11분)** 이었고, 5xx 는 186건(500 49 / 502 82 / 504 55)입니다. 14:52 부터 평시로 돌아왔고, 재시작 기록은 없습니다.
+- **무엇이**: API 커넥션 풀(`itembank-pool`, 5개)이 비었습니다. 그래서 문항 · 단원 · 배포 조회까지 3초 대기 후 500 이 났고, nginx 가 upstream 을 제외하면서 502 가 이어졌습니다.
+- **직접 원인**: `ReportService.buildClassReport` 가 조회를 끝낸 뒤에도 트랜잭션(커넥션)을 쥔 채 `sign()`(SHA-256 20만 회)을 돌렸습니다. 그 결과 report 1건이 커넥션 1개를 15.5~21.5초 점유했습니다.
+- **촉발 조건**: 14:38 부터 교사용 리포트 페이지에서 report 요청이 분당 0.16건에서 12.2건으로 늘었습니다. 동시 점유가 풀 크기 5에 닿았습니다(14:40:25).
+- **확신 수준: 중간**. 로그와 코드는 같은 순서를 가리킵니다. 하지만 `sign()` 소요 시간, 운영 leak threshold, 운영 코드 버전은 확인하지 못했습니다(9절).
+
 ## 1. 수집 범위
 
 > 대상: `incident-logs/a-connection-pool/` 원본 4개 파일 (수정하지 않음)
@@ -17,7 +25,7 @@
 
 **타임존 판정 근거**
 
-- `nginx-error.log` 에는 오프셋이 없습니다. 14:51:03 `upstream timed out` (client 10.20.3.12, `GET /api/classes/3/report`) 줄이 `nginx-access.log` 19351행의 `[16/Sep/2026:14:51:03 +0900] ... 504` 와 초 단위까지 일치합니다. 그래서 KST로 판정했습니다.
+- `nginx-error.log` 에는 오프셋이 없습니다. 14:51:03 `upstream timed out` (client 교사단말A, `GET /api/classes/3/report`) 줄이 `nginx-access.log` 19351행의 `[16/Sep/2026:14:51:03 +0900] ... 504` 와 초 단위까지 일치합니다. 그래서 KST로 판정했습니다.
 - `mariadb-slow.log` 의 `SET timestamp=1789537062` 는 2026-09-16 05:37:42 UTC, 즉 14:37:42 KST입니다. `# Time: 5:37:52` 도 같은 기준(UTC)입니다. 나머지 2건도 같은 방식으로 맞습니다.
 - slow log 한 건 안에서 `# Time` 과 `SET timestamp` 는 약 10초 차이가 나고, 이는 `Query_time 9.81` 과 거의 같습니다. 따라서 **`SET timestamp` = 쿼리 시작, `# Time` = 쿼리 종료**로 보고 타임라인에 배치합니다.
 
@@ -153,11 +161,11 @@
 | **14:37:42** | mariadb-slow.log:20 (`SET timestamp=1789537062`) | **느린 쿼리가 시작됐습니다.** Query_time 9.81s, Rows_examined 1,284,310건, Lock_time 0.00007s입니다. 같은 날 다른 slow 2건은 Rows_examined 41,822건(09:14)과 5건(11:02)이었습니다 | `from submission s1_0 where s1_0.distribution_id=5 order by s1_0.student_id;` |
 | 14:37:52 | mariadb-slow.log:15 | 위 느린 쿼리가 끝났습니다 (`# Time` 5:37:52 UTC). **(선후 불확실)** 다음 줄의 14:37:52.199와 같은 초입니다 | `# Time: 260916  5:37:52` |
 | **14:37:52.199** | app.log:1243 | **첫 커넥션 leak 감지 WARN**입니다 (Connection@6e8f14d3, thread exec-6). 함께 찍힌 스택(1244~1257행)에 `ReportService.buildClassReport`(1253)와 `ReportController.classReport`(1254)가 있습니다 | `Connection leak detection triggered for org.mariadb.jdbc.Connection@6e8f14d3` |
-| **14:38:01** | nginx-access.log:18801 | **report 요청이 늘기 시작했습니다.** 10.20.3.12가 `/api/classes/3/report` 를 요청해 200을 받았고, 이후 약 26~30초 간격으로 반복합니다 | `[16/Sep/2026:14:38:01 +0900] "GET /api/classes/3/report HTTP/1.1" 200 266` |
+| **14:38:01** | nginx-access.log:18801 | **report 요청이 늘기 시작했습니다.** 교사단말A가 `/api/classes/3/report` 를 요청해 200을 받았고, 이후 약 26~30초 간격으로 반복합니다 | `[16/Sep/2026:14:38:01 +0900] "GET /api/classes/3/report HTTP/1.1" 200 266` |
 | 14:38:01.900 / .902 | app.log:1258, 1259 | class 3 리포트 생성이 끝났고, 14:37:52에 보고된 leak 커넥션이 반환됐습니다 (exec-6). **(선후 불확실)** access 18801행과 같은 초입니다 | `Previously reported leaked connection org.mariadb.jdbc.Connection@6e8f14d3` |
-| 14:38:29 | nginx-access.log:18817, app.log:1278 | 10.20.3.12가 distribution 5를 재배포했습니다 (200). **(선후 불확실)** 두 파일 시각이 같은 초입니다. 재배포는 이날 29건 있는 평소 이벤트이고, 이 구간 안에서는 14:19:38(1182)과 14:44:19(2929)에도 있습니다 | `redistributed distribution 5 (assignment 3, class 3) reason=null` |
+| 14:38:29 | nginx-access.log:18817, app.log:1278 | 교사단말A가 distribution 5를 재배포했습니다 (200). **(선후 불확실)** 두 파일 시각이 같은 초입니다. 재배포는 이날 29건 있는 평소 이벤트이고, 이 구간 안에서는 14:19:38(1182)과 14:44:19(2929)에도 있습니다 | `redistributed distribution 5 (assignment 3, class 3) reason=null` |
 | 14:38:51 ~ 14:40:12 | app.log:1280, 1331, 1351, 1370 | leak 감지 대상 커넥션이 늘어났습니다. 6e8f14d3(14:37:52) → 2ac19f07(14:38:51) → 71d4b8e2(14:39:50) → 3f6c2a91(14:40:04) → 5b0e9e0c(14:40:12)로, **서로 다른 커넥션 5개**입니다. 이후 ERROR 줄에 찍힌 풀 크기는 total=5입니다 | `Connection leak detection triggered for org.mariadb.jdbc.Connection@5b0e9e0c` |
-| 14:39:54 ~ 14:40:43 | nginx-access.log:18881, 18904, 18912 | report를 요청하는 클라이언트가 늘었습니다. 10.20.3.11(class 1·2)은 14:39:54, 10.20.3.17(class 3)은 14:40:27, 10.20.3.23(class 1)은 14:40:43부터 요청했습니다. 14:38~14:51 report 171건의 IP별 내역은 10.20.3.11 67건 / 10.20.3.12 40건 / 10.20.3.17 35건 / 10.20.3.23 29건입니다 | `[16/Sep/2026:14:39:54 +0900] "GET /api/classes/1/report HTTP/1.1" 200 271` |
+| 14:39:54 ~ 14:40:43 | nginx-access.log:18881, 18904, 18912 | report를 요청하는 클라이언트가 늘었습니다. 교사단말B(class 1·2)은 14:39:54, 교사단말C(class 3)은 14:40:27, 교사단말D(class 1)은 14:40:43부터 요청했습니다. 14:38~14:51 report 171건의 IP별 내역은 교사단말B 67건 / 교사단말A 40건 / 교사단말C 35건 / 교사단말D 29건입니다 | `[16/Sep/2026:14:39:54 +0900] "GET /api/classes/1/report HTTP/1.1" 200 271` |
 
 ### 2.2 이상 구간 (14:38 ~ 14:51)
 
@@ -169,17 +177,17 @@
 | **14:40:52.319** | app.log:1521 ~ 1523 | **첫 커넥션 풀 타임아웃 ERROR**입니다. 3000ms를 기다렸고 풀 상태는 total=5, active=5, idle=0, waiting=4였습니다. 이어서 `/api/units/M6-2/items` 에 unhandled exception이 찍혔습니다 | `itembank-pool - Connection is not available, request timed out after 3000ms` |
 | 14:40:52 | nginx-access.log:18918 | 첫 500입니다 (`GET /api/units/M6-2/items`). **(선후 불확실)** app.log 1522행과 같은 초입니다 | `[16/Sep/2026:14:40:52 +0900] "GET /api/units/M6-2/items HTTP/1.1" 500 162` |
 | 14:40:52 첫 발생 | app.log:1522 → 4980, nginx-access.log:18918 → 19305 | 풀 타임아웃 ERROR와 500이 반복됩니다. 두 파일의 분당 건수가 같습니다: 14:40 1 / 14:41 6 / 14:42 2 / 14:43 10 / 14:44 2 / 14:45 8 / 14:46 4 / 14:47 5 / 14:48 4 / 14:49 7, 총 49건. waiting 값은 1~7이고, 최댓값 7은 14:45:06(app.log:3249)입니다. 500이 난 경로는 `/api/units/*/items` 19건, `/api/units` 14건, `/api/items/N` 7건, `/api/classes/N/report` 5건, `/api/distributions/N` 4건입니다 | `(total=5, active=5, idle=0, waiting=…)` |
-| **14:41:06** | nginx-access.log:18933, nginx-error.log:6 | **첫 504**이자 첫 `upstream timed out` 입니다 (10.20.3.12, `/api/classes/3/report`). **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `upstream timed out (110: Connection timed out) while reading response header` |
+| **14:41:06** | nginx-access.log:18933, nginx-error.log:6 | **첫 504**이자 첫 `upstream timed out` 입니다 (교사단말A, `/api/classes/3/report`). **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `upstream timed out (110: Connection timed out) while reading response header` |
 | 14:41:06 첫 발생 | nginx-access.log:18933 → 19381, nginx-error.log:6 → 168 | 504와 `upstream timed out` 이 반복됩니다. 두 파일의 분당 건수가 같습니다: 14:41 3 / 14:42 5 / 14:43 5 / 14:44 6 / 14:45 5 / 14:46 6 / 14:47 3 / 14:48 5 / 14:49 8 / 14:50 7 / 14:51 2, 총 55건. 504는 모두 `/api/classes/N/report` 입니다 | `"GET /api/classes/3/report HTTP/1.1" 504 167` |
 | **14:42:01** | nginx-error.log:9, 10, 11 | 같은 초에 세 줄이 파일 순서대로 찍혔습니다. `upstream timed out`(*225025) → **첫 `upstream server temporarily disabled`**(*225025) → **첫 `connect() failed (111: Connection refused)`**(*225045) | `upstream server temporarily disabled while reading response header from upstre` |
-| 14:42:01 | nginx-access.log:18970 | 첫 502입니다 (10.20.3.11, `/api/classes/2/report`). **(선후 불확실)** nginx-error 9~11행과 같은 초입니다 | `[16/Sep/2026:14:42:01 +0900] "GET /api/classes/2/report HTTP/1.1" 502 157` |
+| 14:42:01 | nginx-access.log:18970 | 첫 502입니다 (교사단말B, `/api/classes/2/report`). **(선후 불확실)** nginx-error 9~11행과 같은 초입니다 | `[16/Sep/2026:14:42:01 +0900] "GET /api/classes/2/report HTTP/1.1" 502 157` |
 | 14:42:04 | nginx-error.log:12 | 첫 `no live upstreams` 입니다 | `no live upstreams while connecting to upstream` |
 | 14:42:01 ~ 14:51:02 | nginx-error.log:10 → 166, nginx-access.log:18970 → 19347 | 반복 건수입니다. `temporarily disabled` 26건: 14:42 2 / 14:43 1 / 14:44 4 / 14:45 3 / 14:46 3 / 14:47 1 / 14:48 4 / 14:49 4 / 14:50 4. `connect() failed` 14건: 2/1/1/2/2/1/1/2/2 (14:42~14:50). `no live upstreams` 68건: 14:42 11 / 14:43 1 / 14:44 4 / 14:45 12 / 14:46 14 / 14:47 5 / 14:48 5 / 14:49 6 / 14:50 9 / 14:51 1. access 502 82건: 14:42 13 / 14:43 2 / 14:44 5 / 14:45 14 / 14:46 16 / 14:47 6 / 14:48 6 / 14:49 8 / 14:50 11 / 14:51 1. 502가 난 경로는 report 32건, items 13건, units 12건, units/items 12건, distributions 9건, 그 외 3건입니다 | `" 502 157` |
 | 14:49:51.552 | app.log:4980, 4981, nginx-access.log:19305 | 마지막 풀 타임아웃 ERROR이자 마지막 500입니다. **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `itembank-pool - Connection is not available, request timed out after 3000ms` |
 | 14:50:52 | nginx-error.log:158, 159 | 마지막 `temporarily disabled` 와 마지막 `connect() failed` 입니다 | `connect() failed (111: Connection refused) while connecting to upstream` |
-| 14:51:02 | nginx-error.log:166, nginx-access.log:19347 | 마지막 `no live upstreams` 와 마지막 502입니다. **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `no live upstreams while connecting to upstream, client: 10.20.5.80` |
+| 14:51:02 | nginx-error.log:166, nginx-access.log:19347 | 마지막 `no live upstreams` 와 마지막 502입니다. **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `no live upstreams while connecting to upstream, client: 10.20.x.x` |
 | 14:51:37.674 | app.log:5251 | 마지막 leak 감지 WARN입니다 | `Connection leak detection triggered for org.mariadb.jdbc.Connection@…` |
-| **14:51:47** | nginx-access.log:19381, nginx-error.log:168 | **마지막 504**이자 마지막 `upstream timed out` 이고, nginx-error.log의 마지막 줄입니다 (10.20.3.17, `/api/classes/3/report`). **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `[16/Sep/2026:14:51:47 +0900] "GET /api/classes/3/report HTTP/1.1" 504 167` |
+| **14:51:47** | nginx-access.log:19381, nginx-error.log:168 | **마지막 504**이자 마지막 `upstream timed out` 이고, nginx-error.log의 마지막 줄입니다 (교사단말C, `/api/classes/3/report`). **(선후 불확실)** 두 파일 시각이 같은 초입니다 | `[16/Sep/2026:14:51:47 +0900] "GET /api/classes/3/report HTTP/1.1" 504 167` |
 | 14:51:49.148 | app.log:5267 | 마지막 leak 커넥션 반환 INFO입니다 | `Previously reported leaked connection org.mariadb.jdbc.Connection@…` |
 
 ### 2.3 복귀 후 (14:52 ~ 15:02)
@@ -196,7 +204,7 @@
 > 판정은 유지 / 기각 / 판단 불가(로그 부족) 세 가지이고, 로그로 본 범위 안의 결론입니다. 코드 · 설정과 대조한 최종 판정은 3.7 에 있습니다.
 > 가장 많이 나온 메시지(`Connection is not available, request timed out` 49건, `Connection leak detection triggered` 134건, `no live upstreams` 68건)는 **증상**으로 봅니다. 각 가설은 "커넥션이 왜 10초 넘게 묶였는가, 그리고 왜 14:37 이후에만 그랬는가"를 설명하려는 문장입니다.
 > 지지 근거는 `2절 표의 행(시각) — 원본 파일:줄번호` 형식으로 적었습니다.
-> DB 확인 명령은 모두 읽기 계정 `readonly` / `readonly-pass` 로 실행합니다. 쓰기 계정은 쓰지 않습니다.
+> DB 확인 명령은 모두 읽기 계정 `readonly` / `[SECRET]` 로 실행합니다. 쓰기 계정은 쓰지 않습니다.
 
 ### 3.0 가설 정리 전에 추가로 확인한 사실
 
@@ -210,7 +218,7 @@
 | `built class report` 는 하루 190건이고, 14:37:52 이전에는 leak WARN 이 0건입니다 | app.log:103 등 (`grep -n 'built class report'`) |
 | leak WARN 134건의 스택에 나오는 `com.example` 메서드는 전부 `ReportService.buildClassReport` 입니다 | app.log (`grep -A10 'leak detection' \| grep 'at com.example'` 집계) |
 | report 요청의 referrer 가 이상 구간에 바뀌었습니다. 구간 밖 58건은 모두 `/teacher/classes/N`, 구간 안 171건은 모두 `/teacher/classes/N/report` 입니다. `/report` referrer 는 18801행(14:38:01)에서 처음 나옵니다 | nginx-access.log:18801 (`grep -n 'teacher/classes/[0-9]*/report"'` = 171건) |
-| 10.20.3.12 의 report 요청 시각: 14:38:01 → 14:38:27 → 14:38:57 → 14:39:24 → 14:39:55 → 14:40:19 (간격 24~31초) | nginx-access.log:18801 이후 |
+| 교사단말A 의 report 요청 시각: 14:38:01 → 14:38:27 → 14:38:57 → 14:39:24 → 14:39:55 → 14:40:19 (간격 24~31초) | nginx-access.log:18801 이후 |
 | `ReportService.buildClassReport` 는 `@Transactional` 메서드 안에서 조회를 끝낸 뒤 `sign()`(SHA-256 200,000회 반복)을 호출합니다 | `modern/api/src/main/java/com/example/assignment/ReportService.java:23, 41~71, 85~93` |
 | 스키마에는 `submission.distribution_id` 인덱스가 있습니다 | `db/mariadb/init/01-schema.sql:112` |
 | `SIGNATURE_ROUNDS` 는 저장소 초기 커밋부터 있었습니다. 저장소 이력은 운영 배포 이력이 아닙니다 | `git log -S SIGNATURE_ROUNDS -- modern/api` → `1260542` 1건 |
@@ -222,7 +230,7 @@
 | 가설 | `ReportService.buildClassReport` 가 조회를 끝낸 뒤에도 트랜잭션(커넥션)을 쥔 채 CPU 작업 `sign()` 을 수행해, report 요청 1건이 커넥션 1개를 수 초~수십 초 점유했고, 동시 report 요청이 풀 크기(5)를 넘자 다른 API 가 커넥션을 얻지 못했다. | **유지** — leak 134건 전부 `buildClassReport` 이고(A-1), 커넥션 반환 134건 모두 `sign()` 뒤에 찍히는 완료 로그와 0.1초 이내(A-4), 점유 15.54~21.51초(A-3). 단 평시 50건은 leak 0건이라(A-5) 이 가설만으로는 14:37 시작을 설명하지 못해 가설 C 와 함께 봐야 합니다 |
 | 지지 근거 | · 2.1 표 14:37:52.199 행 — app.log:1243~1254 (leak 스택에 `ReportService.buildClassReport`, `ReportController.classReport`)<br>· 2.1 표 14:38:01.900 행 — app.log:1258~1259 (리포트 완료 직후 커넥션 반환. slow query 종료 후 약 10초)<br>· 2.1 표 14:38:51 ~ 14:40:12 행 — app.log:1280, 1331, 1351, 1370 (서로 다른 커넥션 5개 = 풀 크기 5)<br>· 2.2 표 14:40:52.319 행 — app.log:1521~1523 (`total=5, active=5, idle=0`)<br>· 3.0: leak 134건 전부 같은 메서드 | · A-3: 점유 시간 n=134, min 15.54 / 중앙값 18.93 / max 21.51 / 평균 19.01초 (획득 시각 = leak WARN − 10초, 3.0 전제)<br>· A-5: 이상 구간 report 완료 140건 중 134건이 10초를 넘음 |
 | 반증 조건 | · `sign()` 단독 소요 시간이 운영과 비슷한 환경에서 1초 미만이면, 커넥션 점유 시간을 이 코드로 설명할 수 없다.<br>· 평시(14:37 이전) report 50건도 같은 `sign()` 을 돌렸는데 leak 0건이다. 평시 report 가 10초 미만에 끝났다면 이 코드 **단독**으로는 14:37 이후만 설명하지 못하고, 동시 실행 수(가설 C) 또는 쿼리 지연(가설 B)과 묶어야 한다.<br>· 이상 구간의 leak 스택에 `buildClassReport` 가 아닌 메서드가 섞여 있거나, 같은 커넥션의 반환 시각이 리포트 완료 로그와 맞지 않으면 틀리다. | · ① `sign()` 단독 시간: **미확인** — 로그로 잴 수 없음(테스트 필요, 이번 범위 밖)<br>· ② 평시 50건 leak 0건: **해당** — 단독 설명 불가, C 와 묶어야 함. 평시 점유 시간과 이상 구간에 점유가 길어진 이유(15~21초)는 **판단 불가**: 요청별 처리 시간(nginx `$request_time` · `$upstream_response_time`, 앱 요청 시간 로그)과 CPU 사용률 · 스레드 덤프가 있었다면 비교할 수 있었음<br>· ③ 다른 메서드 0건, 반환 시각 불일치 0건: **해당 없음** (가설을 깨지 않음) |
-| 확인 방법 | · 코드: `ReportService.java:41~71` (트랜잭션 경계와 `sign()` 호출 위치), `application.yml:11~18`<br>· `sign()` 소요 시간: `ReportServiceTest` 에 `ReportService.sign("1\|STU-1001\|...")` 실행 시간을 재는 테스트를 하나 두고 `./gradlew test --tests "com.example.assignment.ReportServiceTest"`<br>· 커넥션 점유 시간: leak WARN 과 반환 INFO 를 커넥션 ID 로 짝지어 차이 계산 — `grep -nE 'leak detection triggered\|was returned to the pool' incident-logs/a-connection-pool/app.log \| grep -oE 'T[0-9:.]*\|Connection@[0-9a-f]*'`<br>· 스택 집계: `grep -A10 'Connection leak detection triggered' incident-logs/a-connection-pool/app.log \| grep -o 'at com.example[^(]*' \| sort \| uniq -c` | · 실행: 3.6 A-1 ~ A-5<br>· 왼쪽 칸의 `grep -oE` 명령은 커넥션별 짝짓기를 못 해서 A-3 의 awk 로 바꿔 실행<br>· 미실행: `sign()` 측정 테스트 (로그 확인 아님) |
+| 확인 방법 | · 코드: `ReportService.java:41~71` (트랜잭션 경계와 `sign()` 호출 위치), `application.yml:11~18`<br>· `sign()` 소요 시간: `ReportServiceTest` 에 `ReportService.sign("1\|학생A\|...")` 실행 시간을 재는 테스트를 하나 두고 `./gradlew test --tests "com.example.assignment.ReportServiceTest"`<br>· 커넥션 점유 시간: leak WARN 과 반환 INFO 를 커넥션 ID 로 짝지어 차이 계산 — `grep -nE 'leak detection triggered\|was returned to the pool' incident-logs/a-connection-pool/app.log \| grep -oE 'T[0-9:.]*\|Connection@[0-9a-f]*'`<br>· 스택 집계: `grep -A10 'Connection leak detection triggered' incident-logs/a-connection-pool/app.log \| grep -o 'at com.example[^(]*' \| sort \| uniq -c` | · 실행: 3.6 A-1 ~ A-5<br>· 왼쪽 칸의 `grep -oE` 명령은 커넥션별 짝짓기를 못 해서 A-3 의 awk 로 바꿔 실행<br>· 미실행: `sign()` 측정 테스트 (로그 확인 아님) |
 
 ### 3.2 가설 B — DB · 쿼리
 
@@ -231,7 +239,7 @@
 | 가설 | `submission` 조회(`where distribution_id=? order by student_id`)가 운영 DB 에서 인덱스를 타지 못하거나 테이블이 커서 약 10초 걸렸고, 쿼리를 기다리는 동안 커넥션이 묶여 풀이 고갈됐다. | **기각** (풀 고갈의 원인으로서) — slow log 에 2.04초 쿼리가 남았으므로 임계값은 2.04초 이하인데, 이상 구간 slow 는 1건뿐(B-1). report 1건은 쿼리 5회(학급 1 + 배포 1 + 제출 3, 이상 구간 140건 모두 배포 3개)라 기록 안 된 쿼리의 합은 10.2초 미만이고, 최소 점유 15.54초(A-3)보다 짧음. 전제 2개: slow log 설정이 하루 동안 같았음(B-2 에서 설정 기록 0건, 미확인), 쿼리 수는 저장소 코드 기준이며 운영 코드가 같음(미확인). 14:37:42 의 9.8초 · 1,284,310행 쿼리 자체는 원인을 모른 채 남김 |
 | 지지 근거 | · 2.1 표 14:37:42 행 — mariadb-slow.log:20 (Query_time 9.81s, Rows_examined 1,284,310, Rows_sent 4, Lock_time 0.00007s)<br>· 2.1 표 14:37:52 행 — mariadb-slow.log:15 (종료 시각이 첫 leak WARN 과 같은 초)<br>· 3.0: 6e8f14d3 획득 시각(≈14:37:42.2)이 slow query 시작과 같은 초<br>· 같은 날 다른 slow 2건은 Rows_examined 41,822 / 5 (mariadb-slow.log:4, 11) | · B-3: 첫 커넥션 6e8f14d3 도 쿼리 종료(14:37:52) 뒤 약 9.9초 더 점유함 |
 | 반증 조건 | · slow log 임계값(`long_query_time`)이 2초 이하로 확인되면(2.04초 건이 기록됨, mariadb-slow.log:11), 이상 구간 leak 134건 중 slow query 가 1건뿐이므로 나머지 133건의 점유는 쿼리 지연으로 설명되지 않는다.<br>· `EXPLAIN` 이 `idx_submission_distribution` 을 쓰고 `rows` 가 수십 건 이하로 나오면 1,284,310 은 실행계획 문제가 아니다.<br>· 14:37:42 전후에 해당 쿼리를 막는 락 · 대량 쓰기 · 백업이 없고, 같은 쿼리를 다시 실행해도 빠르면 일회성 지연이다. | · ① 임계값 2초 이하: 로그로 **해당** (Query_time 2.041903 건이 기록됨, mariadb-slow.log:11) — 나머지 133건 설명 불가<br>· ② `EXPLAIN`: **미실행** (DB 접속 필요)<br>· ③ 락 · 대량 쓰기 · 백업: **판단 불가** — slow log 밖의 DB 로그가 없음. general log, `SHOW ENGINE INNODB STATUS` 기록, performance_schema 이력, 백업 작업 로그가 있었다면 확인할 수 있었음 |
-| 확인 방법 | · `mysql -h 127.0.0.1 -u readonly -preadonly-pass itembank -e "SHOW VARIABLES LIKE 'long_query_time'; SHOW VARIABLES LIKE 'log_slow%';"`<br>· `mysql ... -e "SHOW INDEX FROM submission; EXPLAIN SELECT id,distribution_id,score,student_id,submitted_at FROM submission WHERE distribution_id=5 ORDER BY student_id; SELECT COUNT(*) FROM submission;"`<br>· 스키마 대조: `db/mariadb/init/01-schema.sql:105~115`<br>· 한계: 로컬 compose 는 시드 데이터라 실행계획 모양만 볼 수 있습니다. 행 수 · 통계는 운영 DB(readonly)에서 봐야 합니다. | · 실행: 3.6 B-1 ~ B-3<br>· 미실행: 왼쪽 칸의 `mysql` 명령 (로그가 아니라 readonly DB 접속이 필요) |
+| 확인 방법 | · `mysql -h 127.0.x.x -u readonly -p[SECRET] itembank -e "SHOW VARIABLES LIKE 'long_query_time'; SHOW VARIABLES LIKE 'log_slow%';"`<br>· `mysql ... -e "SHOW INDEX FROM submission; EXPLAIN SELECT id,distribution_id,score,student_id,submitted_at FROM submission WHERE distribution_id=5 ORDER BY student_id; SELECT COUNT(*) FROM submission;"`<br>· 스키마 대조: `db/mariadb/init/01-schema.sql:105~115`<br>· 한계: 로컬 compose 는 시드 데이터라 실행계획 모양만 볼 수 있습니다. 행 수 · 통계는 운영 DB(readonly)에서 봐야 합니다. | · 실행: 3.6 B-1 ~ B-3<br>· 미실행: 왼쪽 칸의 `mysql` 명령 (로그가 아니라 readonly DB 접속이 필요) |
 
 ### 3.3 가설 C — 트래픽 · 클라이언트
 
@@ -239,7 +247,7 @@
 |---|---|---|
 | 가설 | 14:38 무렵 교사용 리포트 **페이지**(`/teacher/classes/N/report`)가 쓰이기 시작했고, 이 페이지가 report API 를 약 25~30초마다 자동 호출해 report 동시 실행 수가 풀 크기를 넘었다. 504/502 를 받은 뒤의 재요청이 부하를 유지했다. | **유지** (자동 호출 부분은 판단 불가) — 동시 점유가 최대 5(풀 크기)에 14:40:25.80 처음 닿았고(C-1), 풀 타임아웃 ERROR 49건 모두 `active=5, idle=0`(C-2). `/report` referrer 는 구간 안 171건 / 밖 0건(C-3). 하지만 요청 간격이 고르지 않고 access 시각이 응답 종료 시각이라, 타이머가 부른 것인지는 판단할 수 없음 |
 | 지지 근거 | · 2.1 표 14:38:01 행 — nginx-access.log:18801 (report 반복 시작, 이후 26~30초 간격)<br>· 2.1 표 14:39:54 ~ 14:40:43 행 — nginx-access.log:18881, 18904, 18912 (클라이언트 4개로 늘어남)<br>· 2.2 표 14:38 ~ 14:51 행 — nginx-access.log:18801~19392 (report 분당 0.16 → 12.2건, 전체 요청량은 비슷)<br>· 3.0: report referrer 가 구간 밖 `/teacher/classes/N` 58건 → 구간 안 `/teacher/classes/N/report` 171건, 첫 등장 18801행<br>· 2.3 표 14:59:15 행 — nginx-access.log:19701 (복귀 후 report 는 다시 드문드문, 모두 200) | · C-6: 14:38 이전 report 요청 간격 43개 중 120초 미만은 2개<br>· C-4: 이상 구간 간격 166개 중 15~24초가 90개 |
-| 반증 조건 | · `/teacher/classes/N/report` referrer 가 14:38 이전(다른 날 로그 포함)에도 같은 빈도로 있었으면 "새 페이지" 부분이 틀리다.<br>· IP별 요청 간격이 일정하지 않으면(사람이 누른 새로고침) 자동 호출 부분이 틀리다.<br>· 이상 구간에 report 동시 처리 수가 늘 5 미만이었다면 동시 실행 수로 풀 고갈을 설명할 수 없다.<br>· 같은 페이지 · 같은 빈도의 요청이 다른 날에도 있었는데 장애가 없었다면, 트래픽만으로는 원인이 아니다. | · ① referrer 가 이전에도 있었는지: 당일 14:38 이전 0건이라 **해당 없음**. 다른 날은 **판단 불가** — 다른 날 access 로그가 필요<br>· ② 간격 일정성: **판단 불가** — 가설문의 "약 25~30초"는 3.0 의 10.20.3.12 첫 6건 기준이고, 전체 166개는 15~24초가 가장 많음(90개). 그래도 0~4초 29개, 35~44초 22개로 흩어짐(C-4). 짧은 간격 29개 중 22개는 직전 응답이 5xx, 7개는 200(C-5). access 로그 포맷에 `$request_time` 이 있었다면 요청 시작 시각을 되살려 간격을 판단할 수 있었음<br>· ③ 동시 처리 수 5 미만: **해당 없음** (최대 5, C-1). 단 C-1 은 10초 넘게 쥔 커넥션만 셈<br>· ④ 다른 날 같은 요청이 있었는데 장애가 없었는지: **판단 불가** — 다른 날 로그 필요 |
+| 반증 조건 | · `/teacher/classes/N/report` referrer 가 14:38 이전(다른 날 로그 포함)에도 같은 빈도로 있었으면 "새 페이지" 부분이 틀리다.<br>· IP별 요청 간격이 일정하지 않으면(사람이 누른 새로고침) 자동 호출 부분이 틀리다.<br>· 이상 구간에 report 동시 처리 수가 늘 5 미만이었다면 동시 실행 수로 풀 고갈을 설명할 수 없다.<br>· 같은 페이지 · 같은 빈도의 요청이 다른 날에도 있었는데 장애가 없었다면, 트래픽만으로는 원인이 아니다. | · ① referrer 가 이전에도 있었는지: 당일 14:38 이전 0건이라 **해당 없음**. 다른 날은 **판단 불가** — 다른 날 access 로그가 필요<br>· ② 간격 일정성: **판단 불가** — 가설문의 "약 25~30초"는 3.0 의 교사단말A 첫 6건 기준이고, 전체 166개는 15~24초가 가장 많음(90개). 그래도 0~4초 29개, 35~44초 22개로 흩어짐(C-4). 짧은 간격 29개 중 22개는 직전 응답이 5xx, 7개는 200(C-5). access 로그 포맷에 `$request_time` 이 있었다면 요청 시작 시각을 되살려 간격을 판단할 수 있었음<br>· ③ 동시 처리 수 5 미만: **해당 없음** (최대 5, C-1). 단 C-1 은 10초 넘게 쥔 커넥션만 셈<br>· ④ 다른 날 같은 요청이 있었는데 장애가 없었는지: **판단 불가** — 다른 날 로그 필요 |
 | 확인 방법 | · referrer 분포: `awk '/classes\/[0-9]+\/report/ {print $11}' incident-logs/a-connection-pool/nginx-access.log \| sort \| uniq -c`<br>· IP별 간격: `awk '/classes\/[0-9]+\/report/ {print $1, substr($4,14,8)}' incident-logs/a-connection-pool/nginx-access.log \| sort -k1,1 -k2,2` 로 정렬 후 같은 IP 의 이웃 시각 차이 계산<br>· 동시 실행 수: app.log 의 leak WARN 과 반환 INFO 를 짝지어 각 시점에 반환 전인 커넥션 수를 셈<br>· 프런트(lms.example.com) 리포트 페이지의 자동 새로고침 · 재시도 코드와 그 배포 이력 확인 — 이번 수집 범위에 없음. 프런트 담당에게 요청 | · 실행: 3.6 C-1 ~ C-6<br>· 미실행: 프런트 자동 새로고침 코드 · 배포 이력 (수집 범위 밖) |
 
 ### 3.4 가설 D — 배포 · 설정 변경
@@ -425,3 +433,128 @@ EAGER 0
 |---|---|
 | 14:37:42 slow query 가 `distribution_id=5` 조회에 `Rows_examined 1,284,310`, `Rows_sent 4` 였습니다. 스키마에는 `idx_submission_distribution` 이 있습니다 | mariadb-slow.log:18, 20 / `db/mariadb/init/01-schema.sql:112` |
 | `buildClassReport` 는 조회 전용인데 `@Transactional(readOnly = true)` 가 아니라 `@Transactional` 입니다(CLAUDE.md 2절 컨벤션과 다름) | `ReportService.java:41` |
+
+## 4. 원인
+
+> 3.7.3 에서 채택한 가설 A(직접 원인)와 촉발 조건 C 를 인과 순서로 적었습니다. B 를 기각하고 D 를 보류한 사유는 3.7.3 에 있습니다. 문장 번호는 5절의 번호와 같습니다.
+
+**배경 원인 (고갈이 일어날 수 있던 조건)**
+
+- ① 풀이 작고 대기 시간이 짧습니다. 최대 5개, 연결 대기 3초이며 운영 로그 값과 같습니다(3.7.1).
+- ② report API 에는 동시 실행 제한도 캐시도 없습니다. 같은 학급을 반복 요청해도 매번 커넥션을 새로 빌립니다.
+- ③ 트랜잭션 안에서 긴 루프를 돈다는 사실은 코드 주석(TODO)에 이미 적혀 있었지만 고쳐지지 않았습니다.
+
+**촉발 조건 (왜 14:37 이후에만)**
+
+- ④ 14:38:01 부터 referrer 가 `/teacher/classes/N/report` 인 report 요청이 시작됐습니다. 클라이언트 4개가 반복해서 요청했고, report 는 분당 0.16건에서 12.2건으로 늘었습니다.
+
+**직접 원인 (커넥션이 왜 오래 묶였나)**
+
+- ⑤ `buildClassReport` 는 트랜잭션을 시작할 때 커넥션을 빌립니다. 조회를 끝낸 뒤에도 같은 트랜잭션 안에서 `sign()`(SHA-256 200,000회)을 수행합니다.
+- ⑥ `open-in-view: false` 이므로 커넥션은 `sign()` 과 완료 로그가 끝난 뒤, 트랜잭션이 끝날 때 반환됩니다. 그래서 1건당 점유 시간이 15.54~21.51초(중앙값 18.93초)였습니다. 이 값은 leak threshold 가 10초라는 전제에서 계산했습니다.
+- ⑦ 10초 넘게 쥔 커넥션이 서로 다른 5개로 늘었고, 14:40:25 에 동시 점유가 풀 크기 5에 닿았습니다.
+
+**결과 (증상의 전파)**
+
+- ⑧ 다른 API(`ItemService` · `UnitService` · `DistributionService` 의 조회)가 3초를 기다린 뒤 풀 타임아웃으로 실패했고, 500 으로 응답했습니다(49건).
+- ⑨ report 응답이 nginx 대기 시간을 넘어 504 가 났습니다(55건).
+- ⑩ nginx 가 upstream 을 일시 제외하면서 `no live upstreams` 가 났고, report 가 아닌 경로까지 502 가 났습니다(82건).
+- ⑪ 14:51 에 report 요청이 줄자 오류가 멎었습니다. 재시작이나 설정 재적재 기록은 없습니다. 요청이 왜 줄었는지는 9절에 적었습니다.
+
+## 5. 근거 로그 줄
+
+| # | 파일:줄 | 발췌 |
+|---|---|---|
+| ① | `application.yml:14~15` · app.log:1522 | `maximum-pool-size: 5` `connection-timeout: 3000` / `request timed out after 3000ms (total=5, ...)` |
+| ② | `ReportController.java:22` · 3.7.2 C 행 | `return reportService.buildClassReport(id);` (`Cacheable` · `Semaphore` 등 검색 0건) |
+| ③ | `ReportService.java:69~70` | `// DB 작업은 위에서 끝났는데 커넥션(트랜잭션)을 쥔 채로 돈다.` |
+| ④ | nginx-access.log:18801 · 3.6 C-3 | `"GET /api/classes/3/report HTTP/1.1" 200 266` (referrer `/teacher/classes/3/report`, 구간 안 171 / 밖 0) |
+| ④ | nginx-access.log:18881, 18904, 18912 | 교사단말B · 교사단말C · 교사단말D 이 차례로 report 요청을 시작 |
+| ⑤ | app.log:1245 → 1250 → 1253 | `HikariDataSource.getConnection` ← `JpaTransactionManager.doBegin` ← `ReportService$$SpringCGLIB$$0.buildClassReport` |
+| ⑤ | `ReportService.java:41, 71, 23` | `@Transactional` / `String signature = sign(payload.toString());` / `SIGNATURE_ROUNDS = 200_000` |
+| ⑤ | app.log:1243 · 3.6 A-1 | `Connection leak detection triggered for ...Connection@6e8f14d3` (leak 134건 전부 `buildClassReport`) |
+| ⑥ | `application.yml:22` · `ReportService.java:73` | `open-in-view: false` / `log.info("built class report ...")` |
+| ⑥ | app.log:1258~1259 · 3.6 A-4 | `14:38:01.900 built class report for class 3` → `14:38:01.902 ... 6e8f14d3 ... was returned to the pool` (134/134 가 0.1초 이내) |
+| ⑥ | mariadb-slow.log:15 · 3.6 B-3 | `# Time: 260916  5:37:52` — 쿼리 종료 뒤에도 약 9.9초 더 점유 |
+| ⑥ | 3.6 A-3 (app.log leak WARN · 반환 INFO 짝) | `n=134 점유시간 min=15.54 median=18.93 max=21.51` |
+| ⑦ | app.log:1280, 1331, 1351, 1370 · 3.6 C-1 | `...Connection@5b0e9e0c` (5번째 커넥션) / `최대 동시 점유=5 (첫 도달 14:40:25.80)` |
+| ⑧ | app.log:1522~1523 | `(total=5, active=5, idle=0, waiting=4)` / `unhandled exception on /api/units/M6-2/items` |
+| ⑧ | nginx-access.log:18918 · 3.6 C-2 | `"GET /api/units/M6-2/items HTTP/1.1" 500 162` (ERROR 49건 모두 `active=5, idle=0`) |
+| ⑨ | nginx-error.log:6 · nginx-access.log:18933 | `upstream timed out (110: Connection timed out) ... /api/classes/3/report` / `504` |
+| ⑩ | nginx-error.log:10, 12 · nginx-access.log:18970 | `upstream server temporarily disabled` / `no live upstreams ... /api/units/M6-2/items` / 첫 `502` |
+| ⑪ | nginx-access.log:19381 · nginx-error.log:168 · 3.6 D-2 · D-3 | 마지막 504 (14:51:47) / 기동 · 재적재 흔적 0건 |
+
+## 6. 수정안 (지금 적용)
+
+> 제안만 적습니다. 코드는 바꾸지 않았습니다.
+
+**6.1 `sign()` 을 트랜잭션 밖으로 — `modern/api/src/main/java/com/example/assignment/`**
+
+같은 클래스 안의 다른 메서드로 옮기기만 하면 Spring 프록시를 거치지 않습니다(self-invocation). 그러면 트랜잭션 경계가 바뀌지 않으므로 빈을 나눠야 합니다.
+
+| 파일 | 변경 |
+|---|---|
+| `ReportDataReader.java` (신규 `@Service`) | `ReportService.java:43~67` 의 조회 · 집계를 옮깁니다. `@Transactional(readOnly = true)` 를 붙이고, 엔티티가 아닌 `record ReportSnapshot(classId, className, distributionCount, submissionCount, averageScore, payload)` 를 반환합니다 |
+| `ReportService.java:41` | `buildClassReport` 의 `@Transactional` 을 지웁니다. 순서는 `reader.read(classId)` → `sign(snapshot.payload())` → `ClassReport` 생성입니다. `:69~70` TODO 도 함께 지웁니다. 분리 뒤 `ReportService` 는 Repository 를 쓰지 않고, DB 접근은 모두 `readOnly = true` 인 `ReportDataReader` 에 있으므로 "Service 에 `@Transactional`" 컨벤션의 취지는 지켜집니다. 컨벤션 문구 자체는 7절에서 고칩니다 |
+| `ReportServiceTest.java` · `ReportDataReaderTest.java` | CLAUDE.md 2절에 따라 둘 다 필요합니다. `buildClassReport` 에 `@Transactional` 이 없고 `ReportDataReader.read` 에 `readOnly = true` 가 있는지(리플렉션) 확인하는 케이스를 넣습니다 |
+
+- 이렇게 바꾸면 커넥션 점유는 조회 5회에 걸리는 시간으로 줄어듭니다. 3.7.4 의 readOnly 컨벤션 위반도 함께 해소됩니다.
+- **`maximum-pool-size` 를 늘리는 것은 수정안이 아닙니다.** 이상 구간의 평균 동시 점유를 어림하면 12.2건/분 × 19초 ÷ 60 ≈ 3.9개입니다. 풀을 늘려도 클라이언트가 조금만 늘면 다시 차고, 고갈 시점이 늦춰질 뿐입니다.
+- 확인 명령: `./gradlew test --tests "com.example.assignment.*"`
+
+## 7. 재발 방지 (구조적 장치)
+
+| 장치 | 내용 | 막는 것 |
+|---|---|---|
+| 트랜잭션 경계 규칙 | CLAUDE.md 2절에 "`@Transactional` 메서드 안에서 DB 외 작업(서명 · 외부 호출 · 대기) 금지"를 추가합니다. ArchUnit 테스트로 `@Transactional` 클래스가 `MessageDigest` · HTTP 클라이언트에 의존하지 않는지 검사합니다 | 같은 구조가 다른 Service 에 생기는 것 |
+| report 벌크헤드 | report 생성의 동시 실행을 풀 크기보다 작게 제한합니다(예: `Semaphore(2)`, 초과분은 503 + `Retry-After`). 한 엔드포인트가 풀 전체를 가져가지 못하게 합니다 | 무거운 API 하나로 전체 API 가 장애 나는 것 |
+| report 짧은 캐시 | 학급별 결과를 짧은 TTL(예: 30초)로 캐시합니다. 같은 IP 가 같은 학급을 20~30초 간격으로 반복 요청했습니다(3.0) | 폴링이 그대로 DB · CPU 부하가 되는 것 |
+| 프런트 폴링 규칙 | 리포트 페이지(lms.example.com, 이 저장소 밖)에 폴링 간격 하한과 5xx 뒤 지수 백오프를 둡니다. 5초 미만 재요청 29건 중 22건이 5xx 직후였습니다(C-5). 프런트 담당과 합의가 필요합니다 | 장애 중 재요청이 부하를 키우는 것 |
+| nginx 경로 분리 | `/api/classes/*/report` 를 별도 `location` 으로 빼고 timeout 을 따로 둡니다. report 타임아웃이 `max_fails` 를 채워 모든 경로의 upstream 을 내리지 않게 합니다. nginx 설정은 수집 범위 밖이라 현재 값부터 확인해야 합니다 | 한 경로의 지연이 502 로 전체에 번지는 것 |
+| 동시성 회귀 테스트 | report 를 풀 크기보다 많이 동시 호출하는 동안 다른 조회 API 가 성공하는지 확인하는 통합 테스트를 둡니다 | 수정 뒤 같은 구조가 되돌아오는 것 |
+
+## 8. 모니터링 항목
+
+> 경보 시각은 1~3절의 결과로만 추정했습니다. 사용자 영향 시작(14:40:52)보다 얼마나 앞섰는지를 함께 적었습니다.
+
+| 지표 | 임계값 | 이번에 울렸을 시각 | 선행 | 근거 |
+|---|---|---|---|---|
+| Hikari 커넥션 점유 시간 max (`hikaricp_connections_usage_seconds`) 또는 leak WARN 건수 | ≥ 10초 1건 | **14:37:52** | **약 3분** | app.log:1243 |
+| Hikari active / max | = 100% (5/5) | 14:40:25 | 약 27초 | C-1. 10초 넘게 쥔 커넥션만 센 값이라 실제 도달은 같거나 더 이릅니다 |
+| Hikari pending (`hikaricp_connections_pending`) | > 0 (즉시) | 늦어도 14:40:49 | 3초 이상 | app.log:1522 의 스레드가 14:40:52.319 에 3000ms 대기 끝에 실패했으므로, 대기는 14:40:49 이전에 시작됐습니다 |
+| Hikari 연결 타임아웃 (`hikaricp_connections_timeout_total`) | 1분에 ≥ 1 | 14:40:52 | 0 | app.log:1522 |
+| report 요청률 | ≥ 5건/분 (평시 0.16건/분의 30배) | 14:40 분 구간 (10건) | 약 1분 | 2.2 표. ≥ 3건/분으로 잡으면 14:38 에 울리지만, 평시 30분에 5건이 뭉쳐 오는 경우와 구분하려고 5건으로 잡았습니다 |
+| nginx 5xx 비율 | 1분 ≥ 5% | 14:41 분 구간 (9/42 ≈ 21%) | — (영향 뒤) | 1.2 표. 14:40 분 구간은 1/42 ≈ 2.4% 라서 울리지 않습니다 |
+| nginx upstream 제외 · `no live upstreams` | ≥ 1건 | 14:42:01 / 14:42:04 | — (영향 뒤) | nginx-error.log:10, 12 |
+| 엔드포인트별 응답 시간 p95 | report > 5초 | 판단 불가 | — | access 로그에 `$request_time` 이 없습니다(9절) |
+| (보조) slow query | > 5초 | 14:37:52 | 약 3분 | mariadb-slow.log:15. 원인으로는 기각했고(B) 이번에는 시각만 겹쳤습니다 |
+
+- 첫 두 지표를 묶어 경보를 걸면 사용자 영향보다 약 3분 먼저 알 수 있습니다.
+
+## 9. 확인하지 못한 것
+
+**로그가 없어 판단하지 못한 것**
+
+| 항목 | 막힌 이유 |
+|---|---|
+| `sign()` 1회 소요 시간, 평시 10초 미만이던 점유가 15~21초로 늘어난 이유(CPU 경합?) | 측정하지 않았습니다(별도 실행 제외). CPU · 스레드 덤프 기록이 없습니다 |
+| 운영 `leak-detection-threshold` 가 10초인지 | 로그에 값이 없습니다(3.7.1). 5절 ⑥의 점유 시간은 이 전제 위에 있습니다 |
+| 운영 코드 · 설정이 저장소와 같은지, 9/16 무렵 배포가 있었는지(가설 D) | 배포 이력과 기동 로그가 없습니다(D-1 ~ D-3) |
+| report 반복 호출의 주체(페이지 자동 새로고침인지 사람이 누른 것인지), 다른 날과의 비교 | 프런트 코드 · 배포 이력과 다른 날 access 로그가 수집 범위 밖입니다(C ②④) |
+| 14:51 에 report 요청이 줄어든 이유(페이지를 닫았는지, 누가 조치했는지) | 조치 기록이 없습니다. 복구가 자연 해소인지 개입인지 모릅니다 |
+| nginx-error.log:11 의 `connect() failed` 대상은 **API-2** 입니다. timed out 대상은 API-1 이라 서로 다릅니다. 두 번째 upstream 이 장애 전부터 내려가 있었는지, backup 서버인지 | nginx upstream 설정과 API-2 서버 로그가 없습니다. 집계는 하지 않았고 이 한 줄만 봤습니다 |
+| nginx `proxy_read_timeout` · `max_fails` · `fail_timeout` 값, 504 요청이 시작된 시각 | nginx 설정이 수집 범위 밖입니다. access 로그 시각은 요청이 끝난 시각입니다 |
+| 14:37:42 slow query 의 `Rows_examined 1,284,310`(인덱스가 있는데도) | `EXPLAIN` 과 DB 로그(general · InnoDB status · 백업)가 없습니다(3.7.4) |
+| slow log 설정이 하루 동안 같았는지(B 기각의 전제) | slow log 에 설정 기록이 없습니다(B-2) |
+
+**다음을 위해 남겨야 할 로그**
+
+- nginx `log_format` 에 `$request_time $upstream_response_time $upstream_addr $upstream_status` 를 추가합니다. 요청 시작 시각, 지연, 어느 upstream 이 응답했는지를 남깁니다.
+- API 기동 시 Hikari 설정을 출력합니다(`logging.level.com.zaxxer.hikari.HikariConfig: DEBUG`). Actuator/Micrometer 로 `hikaricp_*` 지표를 수집합니다.
+- Tomcat access log(`server.tomcat.accesslog.enabled`, 패턴에 `%D`)로 API 쪽 요청별 처리 시간을 남깁니다.
+- leak WARN 이 처음 찍힐 때 스레드 덤프와 CPU 사용률을 함께 수집합니다.
+- 운영 배포 이력(API · 프런트), nginx 설정 변경 이력, 장애 중 조치 기록을 남깁니다. DB `long_query_time` 등 설정 스냅샷도 함께 보존합니다.
+
+---
+
+마스킹 적용: IP 23건 · 이메일 0건 · 학생 식별자 1건 · 토큰 0건 · 비밀번호/접속 문자열 2건
