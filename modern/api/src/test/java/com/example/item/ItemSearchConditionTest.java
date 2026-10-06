@@ -153,6 +153,57 @@ class ItemSearchConditionTest {
     }
 
     @Test
+    @DisplayName("정렬 — 단원 기본 방향은 오름차순, 난이도 · 등록일은 desc 를 줘도 내림차순, 등록일 asc 는 오름차순")
+    void sortDefaultDirections() {
+        assertThat(parse("sort", "unit").toSort())
+            .isEqualTo(Sort.by(Sort.Order.asc("unit.code"), Sort.Order.desc("level"), Sort.Order.asc("id")));
+        assertThat(parse("sort", "id").toSort()).isEqualTo(Sort.by(Sort.Order.asc("id")));
+        assertThat(parse("sort", "level", "dir", "desc").toSort())
+            .isEqualTo(Sort.by(Sort.Order.desc("level"), Sort.Order.asc("id")));
+        assertThat(parse("sort", "created", "dir", "asc").toSort())
+            .isEqualTo(Sort.by(Sort.Order.asc("createdAt"), Sort.Order.asc("id")));
+        assertThat(parse("sort", "created", "dir", "desc").toSort())
+            .isEqualTo(Sort.by(Sort.Order.desc("createdAt"), Sort.Order.asc("id")));
+    }
+
+    @Test
+    @DisplayName("정렬 없이 방향만 주면 기본 정렬 그대로")
+    void dirWithoutSortKeepsDefault() {
+        assertThat(parse("dir", "asc").toSort()).isEqualTo(DEFAULT_SORT);
+        assertThat(parse("dir", "desc").toSort()).isEqualTo(DEFAULT_SORT);
+    }
+
+    @Test
+    @DisplayName("정렬 · 방향은 앞뒤 공백을 지운 뒤 판정한다")
+    void sortAndDirAreTrimmed() {
+        ItemSearchCondition c = parse("sort", " Title ", "dir", "\tDesc\n");
+
+        assertThat(c.sort()).isEqualTo("title");
+        assertThat(c.dir()).isEqualTo("desc");
+    }
+
+    @Test
+    @DisplayName("난이도 0 · 음수는 null 이 아니라 그 값(= 0건 조건)")
+    void zeroAndNegativeLevelAreKept() {
+        assertThat(parse("level", "0").level()).isZero();
+        assertThat(parse("level", "-1").level()).isEqualTo(-1L);
+    }
+
+    @Test
+    @DisplayName("페이지 — 999 는 그대로, 앞자리 0 은 무시(007 → 7)")
+    void pageBoundaryAndLeadingZero() {
+        assertThat(parse("page", "999").page()).isEqualTo(999);
+        assertThat(parse("page", "007").page()).isEqualTo(7);
+        assertThat(parse("page", "1.5").page()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("일반 · 배열 형태가 함께 오면 일반 형태 값을 쓴다")
+    void plainWinsOverArray() {
+        assertThat(parse("q[]", "a", "q", "b").keyword()).isEqualTo("b");
+    }
+
+    @Test
     @DisplayName("같은 이름이 여러 번 오면 마지막 값, 배열(q[])이면 첫 값")
     void repeatedAndArrayParams() {
         assertThat(parse("q", "a", "q", "b").keyword()).isEqualTo("b");

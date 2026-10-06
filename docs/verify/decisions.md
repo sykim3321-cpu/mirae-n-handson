@@ -29,3 +29,28 @@
 - **내용:** 태그는 지연 로딩인데(`modern/api/src/main/java/com/example/item/Item.java:60` · `ItemSearchRow.java:17`) `@BatchSize` 가 없다. 그래서 페이지마다 행 수만큼 태그 조회가 나갈 수 있다. 리뷰에서 SQL 로그를 켜지 않아 실제 쿼리 수는 확인하지 못했다.
 - **제안:** SQL 로그로 쿼리 수를 먼저 확인한다. 실제로 N+1 이 나오면 `hibernate.default_batch_fetch_size` 나 `@BatchSize` 적용을 검토한다.
 - **상태:** 제안이라 승인 · 반려에는 영향이 없다. 적용 여부는 아직 정하지 않았다.
+
+## reviewer Sub-agent 리뷰 — 문항 검색(`search.php` → `GET /api/items/search`)
+
+- 리뷰: reviewer Sub-agent 보고(`git diff upstream/main...HEAD -- modern characterization`). 별도 리뷰 문서는 없다. 이슈 번호는 메인 세션의 분류 표 번호를 따른다.
+- 결정자: sykim
+- 날짜: 2026-10-06
+- 코드 수정: 없음. 이 기록은 결정만 남긴다.
+
+### #1 · #2 (경고) 배열 형태 파라미터 해석 차이 — 의도한 차이로 승인
+
+- **내용:**
+  - #1: 같은 이름의 일반 · 배열 파라미터가 섞여 오면(`q=a&q[]=b`) 레거시는 쿼리 문자열에서 뒤에 온 형태를 쓴다. 신규 코드는 일반 형태를 먼저 쓴다(`modern/api/src/main/java/com/example/item/ItemSearchCondition.java:126-138`).
+  - #2: 인덱스 배열(`level[0]=3`)을 신규 코드는 파라미터 없음으로 보고 `level < 5` 로 조회한다. 레거시는 첫 원소 3 으로 조회한다. 중첩 배열(`level[a][b]=1`)은 레거시가 `"Array"` → `(int)` 0 이 되어 0건이고, 신규 코드는 전체를 조회한다(`legacy/item-bank-php/search.php:61-64`, `:211-229`).
+- **결정:** 코드는 고치지 않는다. 의도한 차이로 승인한다.
+- **이유:**
+  - 배열 · 혼합 형태 파라미터는 비정상 입력 형태다.
+  - 레거시를 재현하려면 원본 쿼리 문자열을 PHP `$_GET` 규칙대로 파싱해야 한다. 그러려면 `ItemSearchController` 까지 수정 범위를 넓혀야 한다.
+- **남는 차이:** characterization 스냅샷에 이 입력 형태가 없어 테스트로는 잡히지 않는다.
+
+### #3 (경고) DB 오류 시 응답 — 500 `ErrorResponse` 유지
+
+- **결정:** 신규 API 는 DB 오류를 `GlobalExceptionHandler` 가 매핑하는 500 `ErrorResponse` 로 돌려준다. 이 동작을 유지한다.
+- **이유:** Controller 에 try/catch 를 두지 않고 오류 응답 본문을 `ErrorResponse` 하나로 둔다는 컨벤션(CLAUDE.md 2절)을 따른다.
+- **레거시 의심 동작:** 레거시는 DB 오류에도 HTTP 200 과 HTML 오류 문구 "검색 중 오류가 발생했습니다."를 돌려준다(`legacy/item-bank-php/search.php:712-729`). 레거시 코드는 고치지 않고 의심 동작으로만 기록한다.
+- **남는 차이:** 스냅샷은 정상 경로만 담고 있어 이 차이는 테스트로 잡히지 않는다.

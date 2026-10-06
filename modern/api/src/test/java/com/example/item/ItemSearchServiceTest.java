@@ -152,6 +152,47 @@ class ItemSearchServiceTest {
     }
 
     @Test
+    @DisplayName("난이도 오름차순 정렬 — 같은 난이도는 id 오름차순")
+    void sortByLevelAsc() {
+        assertThat(search("sort", "level", "dir", "asc").rows()).extracting(ItemSearchRow::id)
+            .containsExactly(easy, mid, decimal, word);
+    }
+
+    @Test
+    @DisplayName("등록일 정렬 — 등록일이 모두 같으면 방향과 무관하게 id 오름차순")
+    void sortByCreatedTiesById() {
+        assertThat(search("sort", "created", "dir", "asc").rows()).extracting(ItemSearchRow::id)
+            .containsExactly(easy, mid, word, decimal);
+        assertThat(search("sort", "created", "dir", "desc").rows()).extracting(ItemSearchRow::id)
+            .containsExactly(easy, mid, word, decimal);
+    }
+
+    @Test
+    @DisplayName("단원 정렬 기본 방향 — 단원 코드 오름차순, 같은 단원은 난이도 내림차순")
+    void sortByUnitAsc() {
+        assertThat(search("sort", "unit").rows()).extracting(ItemSearchRow::id)
+            .containsExactly(word, mid, easy, decimal);
+    }
+
+    @Test
+    @DisplayName("단원 + 키워드 + 태그 — 모든 조건 AND 결합")
+    void allConditionsCombined() {
+        assertThat(search("unit", "M5-1", "q", "분수", "tag", "계산").rows()).extracting(ItemSearchRow::id)
+            .containsExactly(mid, easy);
+    }
+
+    @Test
+    @DisplayName("난이도 0 · 음수 — 0건, 안내 문구")
+    void zeroOrNegativeLevelIsEmpty() {
+        for (String level : new String[] {"0", "-1"}) {
+            ItemSearchResponse response = search("level", level);
+
+            assertThat(response.count()).isZero();
+            assertThat(response.message()).isEqualTo("검색 결과가 없습니다");
+        }
+    }
+
+    @Test
     @DisplayName("마지막 페이지를 넘는 번호 — 건수는 그대로, 행은 비고 안내 문구 없음")
     void pageBeyondLast() {
         ItemSearchResponse response = search("page", "1000");
