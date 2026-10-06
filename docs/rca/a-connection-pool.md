@@ -476,7 +476,7 @@ EAGER 0
 | ⑥ | `application.yml:22` · `ReportService.java:73` | `open-in-view: false` / `log.info("built class report ...")` |
 | ⑥ | app.log:1258~1259 · 3.6 A-4 | `14:38:01.900 built class report for class 3` → `14:38:01.902 ... 6e8f14d3 ... was returned to the pool` (134/134 가 0.1초 이내) |
 | ⑥ | mariadb-slow.log:15 · 3.6 B-3 | `# Time: 260916  5:37:52` — 쿼리 종료 뒤에도 약 9.9초 더 점유 |
-| ⑥ | 3.6 A-3 (app.log leak WARN · 반환 INFO 짝) | `n=134 점유시간 min=15.54 median=18.93 max=21.51` |
+| ⑥ | app.log:1243~5267 · 3.6 A-3 | `n=134 점유시간 min=15.54 median=18.93 max=21.51` |
 | ⑦ | app.log:1280, 1331, 1351, 1370 · 3.6 C-1 | `...Connection@5b0e9e0c` (5번째 커넥션) / `최대 동시 점유=5 (첫 도달 14:40:25.80)` |
 | ⑧ | app.log:1522~1523 | `(total=5, active=5, idle=0, waiting=4)` / `unhandled exception on /api/units/M6-2/items` |
 | ⑧ | nginx-access.log:18918 · 3.6 C-2 | `"GET /api/units/M6-2/items HTTP/1.1" 500 162` (ERROR 49건 모두 `active=5, idle=0`) |
