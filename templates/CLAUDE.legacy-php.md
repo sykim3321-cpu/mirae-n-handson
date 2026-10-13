@@ -13,7 +13,7 @@ cd characterization && npm test                                      # 동작 �
 docker compose --profile php down && docker compose --profile php up -d   # 시드 데이터를 처음 상태로 되돌린다
 ```
 
-- 이 모듈에는 단위 테스트가 없다. 동작 확인 수단은 `characterization/` 의 동작 보존 테스트와 화면 · `curl` 응답 비교 두 가지다.
+- 이 모듈에는 단위 테스트가 없다. 동작 확인 수단은 `characterization/` 의 동작 보존 테스트와 화면 · `curl` 응답 비교다.
 - 컨테이너를 다시 만들면 DB 는 시드 상태로 돌아간다. 데이터를 바꾸는 작업 전후에는 이 방법으로 상태를 맞춘다.
 
 ## 2. 작업 원칙 — 수정 전 영향도 분석 필수
@@ -22,7 +22,7 @@ docker compose --profile php down && docker compose --profile php up -d   # 시�
 
 1. **읽기 먼저.** 고칠 함수뿐 아니라 그 함수를 호출하는 곳(`grep -rn "함수명" legacy/`)과 그 함수가 부르는 SQL · include 파일을 모두 연다.
 2. **영향도 표를 먼저 답변으로 낸다.** 열: 바뀌는 파일:줄번호 / 영향받는 화면 · 요청 / 확인 방법. 사람이 승인하기 전에는 파일을 고치지 않는다.
-3. **한 번에 한 규칙만** 바꾼다. 두 가지 동작 변경을 한 커밋에 섞지 않는다.
+3. **한 번에 한 규칙만** 바꾼다. 여러 동작 변경을 한 커밋에 섞지 않는다.
 4. **수정 후 확인**은 `characterization/` 테스트 실행과, 바꾼 화면의 응답을 수정 전후로 `curl` 해 `diff` 하는 것으로 한다. 실행 결과를 답변에 적는다.
 
 ## 3. 근거 인용 규칙

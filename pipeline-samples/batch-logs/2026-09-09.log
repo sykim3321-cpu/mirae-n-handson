@@ -1,0 +1,24 @@
+2026-09-10 00:00:00.572 +0900 INFO  [scheduler@10.20.7.31] day_open date=2026-09-09 planned=build_item_stats,export_grades,extract_submissions,load_datamart,build_report_cache
+2026-09-10 00:30:01.977 +0900 INFO  [batch-runner@10.20.7.31] job=build_item_stats date=2026-09-09 run_id=bis-20260910-0030-5192 status=START rows=0 trigger=cron schedule="30 0 * * *" lock=acquired lock_path=/var/lock/batch/build_item_stats.lock pid=40655
+2026-09-10 00:30:03.177 +0900 INFO  [batch-runner@10.20.7.31] job=build_item_stats date=2026-09-09 run_id=bis-20260910-0030-5192 step=read source=itembank.item_response window=1d target=dm.item_stats_daily
+2026-09-10 00:30:57.977 +0900 INFO  [batch-runner@10.20.7.31] job=build_item_stats date=2026-09-09 run_id=bis-20260910-0030-5192 status=RUNNING progress=25% rows=3109
+2026-09-10 01:00:01.157 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 status=START rows=0 trigger=cron schedule="0 1 * * *" lock=acquired lock_path=/var/lock/batch/export_grades.lock pid=44116
+2026-09-10 01:00:02.357 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 step=read source=grade-db/grades.dbo.grade_summary target=s3://itembank-dev-export/grades/
+2026-09-10 01:01:17.657 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 status=RUNNING progress=25% rows=2031
+2026-09-10 01:02:34.157 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 status=RUNNING progress=50% rows=4062
+2026-09-10 01:03:50.657 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 status=RUNNING progress=75% rows=6093
+2026-09-10 01:05:05.321 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 step=write rows=8125 target_status=committed
+2026-09-10 01:05:07.821 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 status=SUCCESS rows=8125 elapsed=306s
+2026-09-10 01:05:07.861 +0900 INFO  [batch-runner@10.20.7.31] job=export_grades date=2026-09-09 run_id=exg-20260910-0100-63f0 lock=released lock_path=/var/lock/batch/export_grades.lock
+2026-09-10 01:30:02.585 +0900 INFO  [batch-runner@10.20.7.31] job=extract_submissions date=2026-09-09 run_id=ext-20260910-0130-4d19 status=START rows=0 trigger=cron schedule="30 1 * * *" lock=acquired lock_path=/var/lock/batch/extract_submissions.lock pid=42245
+2026-09-10 01:40:53.667 +0900 INFO  [batch-runner@10.20.7.31] job=extract_submissions date=2026-09-09 run_id=ext-20260910-0130-4d19 status=SUCCESS rows=41203 elapsed=651s
+2026-09-10 02:00:03.848 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 status=START rows=0 trigger=cron schedule="0 2 * * *" lock=acquired lock_path=/var/lock/batch/load_datamart.lock pid=45800
+2026-09-10 02:00:05.048 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 step=read source=extract_submissions/2026-09-09 mode=append target=dm.daily_submission_fact
+2026-09-10 02:00:06.248 +0900 WARN  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 step=validate skipped=1 student_id=STU-1013 reason="class_id is NULL"
+2026-09-10 02:03:59.585 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 status=RUNNING progress=25% rows=45803
+2026-09-10 02:07:55.323 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 status=RUNNING progress=50% rows=91606
+2026-09-10 02:11:51.060 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 status=RUNNING progress=75% rows=137409
+2026-09-10 02:15:46.798 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 status=SUCCESS rows=183212 elapsed=942s
+2026-09-10 02:15:46.838 +0900 INFO  [batch-runner@10.20.7.31] job=load_datamart date=2026-09-09 run_id=ldm-20260910-0200-bff8 lock=released lock_path=/var/lock/batch/load_datamart.lock
+2026-09-10 03:30:01.006 +0900 INFO  [batch-runner@10.20.7.31] job=build_report_cache date=2026-09-09 run_id=rpc-20260910-0330-849d status=START rows=0 trigger=cron schedule="30 3 * * *" lock=acquired lock_path=/var/lock/batch/build_report_cache.lock pid=45609
+2026-09-10 03:33:48.670 +0900 INFO  [batch-runner@10.20.7.31] job=build_report_cache date=2026-09-09 run_id=rpc-20260910-0330-849d status=SUCCESS rows=1270 input_rows=183212

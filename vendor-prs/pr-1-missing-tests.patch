@@ -1,0 +1,89 @@
+From 1a29f03d2da64343efc1f589a749a5bef6fa1d0f Mon Sep 17 00:00:00 2001
+From: 외주 협력사 개발자 <vendor-dev@example.com>
+Date: Tue, 22 Sep 2026 11:12:05 +0900
+Subject: [PATCH] 요청 범위: 단원별 문항 수 통계 API 추가
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+단원마다 공개 상태 문항이 몇 개인지 한 번에 볼 수 있도록
+GET /api/units/item-counts 를 추가했습니다.
+
+- UnitService.countActiveItemsByUnit() 추가(단원 목록과 같은 순서, 문항 0개 단원 포함)
+- 응답 DTO UnitItemCountResponse 추가
+- 기존 테스트 전부 통과 확인(./gradlew test)
+---
+ .../java/com/example/item/UnitController.java   |  6 ++++++
+ .../com/example/item/UnitItemCountResponse.java |  9 +++++++++
+ .../main/java/com/example/item/UnitService.java | 17 ++++++++++++++++-
+ 3 files changed, 31 insertions(+), 1 deletion(-)
+ create mode 100644 modern/api/src/main/java/com/example/item/UnitItemCountResponse.java
+
+diff --git a/modern/api/src/main/java/com/example/item/UnitController.java b/modern/api/src/main/java/com/example/item/UnitController.java
+index 3b99ec8..6898de9 100644
+--- a/modern/api/src/main/java/com/example/item/UnitController.java
++++ b/modern/api/src/main/java/com/example/item/UnitController.java
+@@ -21,4 +21,10 @@ public class UnitController {
+     public List<UnitResponse> listUnits() {
+         return unitService.listUnits();
+     }
++
++    /** {@code GET /api/units/item-counts} — 단원별 공개 문항 수 통계. */
++    @GetMapping("/item-counts")
++    public List<UnitItemCountResponse> itemCounts() {
++        return unitService.countActiveItemsByUnit();
++    }
+ }
+diff --git a/modern/api/src/main/java/com/example/item/UnitItemCountResponse.java b/modern/api/src/main/java/com/example/item/UnitItemCountResponse.java
+new file mode 100644
+index 0000000..e88938b
+--- /dev/null
++++ b/modern/api/src/main/java/com/example/item/UnitItemCountResponse.java
+@@ -0,0 +1,9 @@
++package com.example.item;
++
++/** {@code GET /api/units/item-counts} 응답 항목 — 단원별 공개 문항 수. */
++public record UnitItemCountResponse(String code, String name, Integer grade, long activeItemCount) {
++
++    static UnitItemCountResponse of(Unit unit, long activeItemCount) {
++        return new UnitItemCountResponse(unit.getCode(), unit.getName(), unit.getGrade(), activeItemCount);
++    }
++}
+diff --git a/modern/api/src/main/java/com/example/item/UnitService.java b/modern/api/src/main/java/com/example/item/UnitService.java
+index 2a60112..dec7364 100644
+--- a/modern/api/src/main/java/com/example/item/UnitService.java
++++ b/modern/api/src/main/java/com/example/item/UnitService.java
+@@ -13,9 +13,11 @@ public class UnitService {
+     private static final Logger log = LoggerFactory.getLogger(UnitService.class);
+ 
+     private final UnitRepository unitRepository;
++    private final ItemRepository itemRepository;
+ 
+-    public UnitService(UnitRepository unitRepository) {
++    public UnitService(UnitRepository unitRepository, ItemRepository itemRepository) {
+         this.unitRepository = unitRepository;
++        this.itemRepository = itemRepository;
+     }
+ 
+     /** 단원 목록 — 학년, 코드 순. */
+@@ -26,4 +28,17 @@ public class UnitService {
+         log.debug("listed {} units", units.size());
+         return units;
+     }
++
++    /**
++     * 단원별 문항 수 통계 — 단원마다 공개({@link ItemStatus#ACTIVE}) 문항 수를 센다.
++     * 순서는 {@link #listUnits()} 와 같다(학년, 코드 순). 문항이 없는 단원은 0 으로 포함한다.
++     */
++    public List<UnitItemCountResponse> countActiveItemsByUnit() {
++        List<UnitItemCountResponse> counts = unitRepository.findAllByOrderByGradeAscCodeAsc().stream()
++            .map(unit -> UnitItemCountResponse.of(
++                unit, itemRepository.countByUnitIdAndStatus(unit.getId(), ItemStatus.ACTIVE)))
++            .toList();
++        log.debug("counted active items for {} units", counts.size());
++        return counts;
++    }
+ }
+-- 
+2.54.0 (Apple Git-157)
+

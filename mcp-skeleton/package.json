@@ -1,0 +1,22 @@
+{
+  "name": "mcp-skeleton",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Day 2-3 실습용 문항 은행 MCP 서버 골격 (TypeScript SDK v2, stdio)",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.2",
+    "typescript": "7.0.2"
+  }
+}

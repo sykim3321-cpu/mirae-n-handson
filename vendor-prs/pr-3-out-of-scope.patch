@@ -1,0 +1,223 @@
+From 283c1c322de5b63aac911a3d820e2b48849a8c1c Mon Sep 17 00:00:00 2001
+From: 외주 협력사 개발자 <vendor-dev@example.com>
+Date: Tue, 22 Sep 2026 11:17:50 +0900
+Subject: [PATCH] 요청 범위: 문항 검색에 난이도 필터 추가
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+단원별 문항 조회 GET /api/units/{code}/items 에 난이도 필터(level)를 붙였습니다.
+level 을 주면 그 난이도 문항만, 생략하면 기존과 같이 전체를 돌려줍니다.
+
+- UnitService.listActiveItemsByUnitAndLevel(code, level) 추가, 없는 단원은 404
+- UnitServiceTest 에 필터 · 404 테스트 추가
+- 작업하면서 보인 주변 코드도 조금 정리했습니다(가독성 개선, 동작 변화 없음)
+---
+ .../assignment/DistributionService.java       | 10 +++++--
+ .../com/example/assignment/ReportService.java | 16 ++++++----
+ .../java/com/example/item/UnitController.java | 11 +++++++
+ .../java/com/example/item/UnitService.java    | 23 +++++++++++++-
+ .../com/example/item/UnitServiceTest.java     | 30 +++++++++++++++++++
+ 5 files changed, 81 insertions(+), 9 deletions(-)
+
+diff --git a/modern/api/src/main/java/com/example/assignment/DistributionService.java b/modern/api/src/main/java/com/example/assignment/DistributionService.java
+index 3c5b1aa..eb9dd12 100644
+--- a/modern/api/src/main/java/com/example/assignment/DistributionService.java
++++ b/modern/api/src/main/java/com/example/assignment/DistributionService.java
+@@ -49,9 +49,7 @@ public class DistributionService {
+     @Transactional
+     public DistributionResponse redistribute(Integer id, String reason) {
+         Distribution distribution = loadOrThrow(id);
+-        if (ASSIGNMENT_CLOSED.equals(distribution.getAssignment().getStatus())) {
+-            throw new IllegalStateException("마감된 과제는 재배포할 수 없습니다: distributionId=" + id);
+-        }
++        assertNotClosed(distribution);
+         distribution.markRedistributed(LocalDateTime.now(clock));
+         log.info("redistributed distribution {} (assignment {}, class {}) reason={}",
+             distribution.getId(),
+@@ -61,6 +59,12 @@ public class DistributionService {
+         return DistributionResponse.from(distribution);
+     }
+ 
++    private static void assertNotClosed(Distribution distribution) {
++        if (ASSIGNMENT_CLOSED.equals(distribution.getAssignment().getStatus())) {
++            throw new IllegalStateException("마감된 과제는 재배포할 수 없습니다: distributionId=" + distribution.getId());
++        }
++    }
++
+     private Distribution loadOrThrow(Integer id) {
+         return distributionRepository.findWithDetailsById(id)
+             .orElseThrow(() -> new NotFoundException("배포가 없습니다: id=" + id));
+diff --git a/modern/api/src/main/java/com/example/assignment/ReportService.java b/modern/api/src/main/java/com/example/assignment/ReportService.java
+index eae2607..503fa33 100644
+--- a/modern/api/src/main/java/com/example/assignment/ReportService.java
++++ b/modern/api/src/main/java/com/example/assignment/ReportService.java
+@@ -62,16 +62,14 @@ public class ReportService {
+             }
+         }
+ 
+-        BigDecimal averageScore = scoredCount == 0
+-            ? null
+-            : scoreSum.divide(BigDecimal.valueOf(scoredCount), 1, RoundingMode.HALF_UP);
++        BigDecimal averageScore = averageOf(scoreSum, scoredCount);
+ 
+         // TODO: 트랜잭션 밖으로 — 외부 집계 시스템 호출을 흉내내는 긴 루프.
+         //       DB 작업은 위에서 끝났는데 커넥션(트랜잭션)을 쥔 채로 돈다.
+         String signature = sign(payload.toString());
+ 
+-        log.info("built class report for class {}: {} distributions, {} submissions",
+-            classId, distributions.size(), submissionCount);
++        log.info("built class report for class {}: {} distributions, {} submissions, average={}",
++            classId, distributions.size(), submissionCount, averageScore);
+         return new ClassReport(
+             classRoom.getId(),
+             classRoom.getName(),
+@@ -81,6 +79,14 @@ public class ReportService {
+             signature);
+     }
+ 
++    /** 평균 점수(소수 1자리, 반올림). 채점된 제출이 없으면 null. */
++    static BigDecimal averageOf(BigDecimal scoreSum, int scoredCount) {
++        if (scoredCount == 0) {
++            return null;
++        }
++        return scoreSum.divide(BigDecimal.valueOf(scoredCount), 1, RoundingMode.HALF_UP);
++    }
++
+     /** 외부 집계 시스템 서명 형식: SHA-256 을 {@link #SIGNATURE_ROUNDS} 회 반복. */
+     static String sign(String payload) {
+         MessageDigest digest = sha256();
+diff --git a/modern/api/src/main/java/com/example/item/UnitController.java b/modern/api/src/main/java/com/example/item/UnitController.java
+index 3b99ec8..86053ed 100644
+--- a/modern/api/src/main/java/com/example/item/UnitController.java
++++ b/modern/api/src/main/java/com/example/item/UnitController.java
+@@ -2,7 +2,9 @@ package com.example.item;
+ 
+ import java.util.List;
+ import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RequestParam;
+ import org.springframework.web.bind.annotation.RestController;
+ 
+ /** 단원 API. 컨트롤러는 서비스만 호출한다. */
+@@ -21,4 +23,13 @@ public class UnitController {
+     public List<UnitResponse> listUnits() {
+         return unitService.listUnits();
+     }
++
++    /**
++     * {@code GET /api/units/{code}/items?level=3} — 단원의 공개 문항을 난이도로 거른다.
++     * {@code level} 이 없는 요청은 기존 {@code ItemController#listItemsByUnit} 이 그대로 받는다.
++     */
++    @GetMapping(value = "/{code}/items", params = "level")
++    public List<ItemResponse> listItemsByLevel(@PathVariable String code, @RequestParam int level) {
++        return unitService.listActiveItemsByUnitAndLevel(code, level);
++    }
+ }
+diff --git a/modern/api/src/main/java/com/example/item/UnitService.java b/modern/api/src/main/java/com/example/item/UnitService.java
+index 2a60112..aede4ee 100644
+--- a/modern/api/src/main/java/com/example/item/UnitService.java
++++ b/modern/api/src/main/java/com/example/item/UnitService.java
+@@ -1,5 +1,6 @@
+ package com.example.item;
+ 
++import com.example.common.NotFoundException;
+ import java.util.List;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+@@ -13,9 +14,11 @@ public class UnitService {
+     private static final Logger log = LoggerFactory.getLogger(UnitService.class);
+ 
+     private final UnitRepository unitRepository;
++    private final ItemRepository itemRepository;
+ 
+-    public UnitService(UnitRepository unitRepository) {
++    public UnitService(UnitRepository unitRepository, ItemRepository itemRepository) {
+         this.unitRepository = unitRepository;
++        this.itemRepository = itemRepository;
+     }
+ 
+     /** 단원 목록 — 학년, 코드 순. */
+@@ -26,4 +29,22 @@ public class UnitService {
+         log.debug("listed {} units", units.size());
+         return units;
+     }
++
++    /**
++     * 단원의 공개 문항 중 난이도가 {@code level}(1~5)인 것만.
++     * 정렬은 저장소 순서(난이도 내림차순, id 오름차순)를 그대로 따른다.
++     *
++     * @throws NotFoundException 단원 코드가 없을 때
++     */
++    public List<ItemResponse> listActiveItemsByUnitAndLevel(String unitCode, int level) {
++        if (unitRepository.findByCode(unitCode).isEmpty()) {
++            throw new NotFoundException("단원이 없습니다: code=" + unitCode);
++        }
++        List<ItemResponse> items = itemRepository.findByUnitCodeAndStatus(unitCode, ItemStatus.ACTIVE).stream()
++            .filter(item -> item.getLevel() == level)
++            .map(ItemResponse::from)
++            .toList();
++        log.debug("listed {} active items for unit {} (level={})", items.size(), unitCode, level);
++        return items;
++    }
+ }
+diff --git a/modern/api/src/test/java/com/example/item/UnitServiceTest.java b/modern/api/src/test/java/com/example/item/UnitServiceTest.java
+index a2e1ceb..8031b50 100644
+--- a/modern/api/src/test/java/com/example/item/UnitServiceTest.java
++++ b/modern/api/src/test/java/com/example/item/UnitServiceTest.java
+@@ -1,9 +1,12 @@
+ package com.example.item;
+ 
+ import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThatThrownBy;
+ import static org.mockito.Mockito.when;
+ 
++import com.example.common.NotFoundException;
+ import java.util.List;
++import java.util.Optional;
+ import org.junit.jupiter.api.DisplayName;
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.extension.ExtendWith;
+@@ -19,6 +22,9 @@ class UnitServiceTest {
+     @Mock
+     private UnitRepository unitRepository;
+ 
++    @Mock
++    private ItemRepository itemRepository;
++
+     @InjectMocks
+     private UnitService unitService;
+ 
+@@ -42,4 +48,28 @@ class UnitServiceTest {
+ 
+         assertThat(unitService.listUnits()).isEmpty();
+     }
++
++    @Test
++    @DisplayName("listActiveItemsByUnitAndLevel: 그 난이도 문항만, 저장소 순서 유지")
++    void listActiveItemsFiltersByLevel() {
++        Unit unit = ItemFixtures.unit(1, "M5-1", "분수의 덧셈과 뺄셈", 5);
++        when(unitRepository.findByCode("M5-1")).thenReturn(Optional.of(unit));
++        when(itemRepository.findByUnitCodeAndStatus("M5-1", ItemStatus.ACTIVE)).thenReturn(List.of(
++            ItemFixtures.item(3, unit, "통분 심화", 4, ItemStatus.ACTIVE),
++            ItemFixtures.item(1, unit, "분모가 같은 덧셈", 2, ItemStatus.ACTIVE),
++            ItemFixtures.item(2, unit, "분모가 같은 뺄셈", 2, ItemStatus.ACTIVE)));
++
++        assertThat(unitService.listActiveItemsByUnitAndLevel("M5-1", 2))
++            .extracting(ItemResponse::id).containsExactly(1, 2);
++        assertThat(unitService.listActiveItemsByUnitAndLevel("M5-1", 5)).isEmpty();
++    }
++
++    @Test
++    @DisplayName("listActiveItemsByUnitAndLevel: 없는 단원 코드는 NotFoundException")
++    void listActiveItemsThrowsWhenUnitMissing() {
++        when(unitRepository.findByCode("X9-9")).thenReturn(Optional.empty());
++
++        assertThatThrownBy(() -> unitService.listActiveItemsByUnitAndLevel("X9-9", 3))
++            .isInstanceOf(NotFoundException.class);
++    }
+ }
+-- 
+2.54.0 (Apple Git-157)
+

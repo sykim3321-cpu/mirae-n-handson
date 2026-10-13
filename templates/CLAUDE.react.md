@@ -8,12 +8,12 @@
 ```bash
 cd modern/web && npm install                                   # 처음 한 번. package-lock.json 을 바꾸지 않는다
 cd modern/web && npm run dev                                   # 개발 서버 http://localhost:5173
-cd modern/web && npm run lint && npm run typecheck && npm test # 커밋 전 필수 세 가지
+cd modern/web && npm run lint && npm run typecheck && npm test # 커밋 전 필수
 cd modern/web && npm run build                                 # 배포용 빌드
 ```
 
 - API 서버는 `http://localhost:8080` (`modern/api`). 개발 서버의 프록시 설정은 `vite.config.ts` 에 있다.
-- 작업이 끝나면 `npm run lint && npm run typecheck && npm test` 세 가지를 모두 실행하고 결과를 답변에 적는다. 하나라도 실패하면 "완료"라고 쓰지 않는다.
+- 작업이 끝나면 `npm run lint && npm run typecheck && npm test` 를 모두 실행하고 결과를 답변에 적는다. 하나라도 실패하면 "완료"라고 쓰지 않는다.
 - 테스트 출력은 통과 · 실패 수와 실패한 테스트 이름만 답변에 남긴다. 전체 로그를 대화에 붙이지 않는다.
 
 ## 2. 코딩 컨벤션

@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.13'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.1.0'
+description = 'spec-project: Day 4-2 spec-driven 실습용 시작 골격 (Spring Boot 3, Java 21)'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // 외부 DB 없이 돈다. 서버 실행과 테스트 모두 H2 메모리 DB를 쓴다.
+    runtimeOnly 'com.h2database:h2'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+        exceptionFormat 'full'
+    }
+}
+
+// ./gradlew bootRun 은 local 프로필로 뜬다. 로컬 확인용 시드 데이터(LocalSeedData)는 이 프로필에서만 들어간다.
+// 테스트(./gradlew test)는 local 프로필을 켜지 않으므로 시드 데이터가 섞이지 않는다.
+tasks.named('bootRun') {
+    systemProperty 'spring.profiles.active', 'local'
+}

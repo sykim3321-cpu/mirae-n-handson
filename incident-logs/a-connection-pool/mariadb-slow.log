@@ -1,0 +1,21 @@
+# Time: 260916  0:14:09
+# User@Host: app[app] @  [10.20.1.21]
+# Thread_id: 48007  Schema: itembank  QC_hit: No
+# Query_time: 2.318446  Lock_time: 0.000071  Rows_sent: 7  Rows_examined: 41822
+# Rows_affected: 0  Bytes_sent: 3104
+SET timestamp=1789517647;
+select i1_0.id,i1_0.created_at,i1_0.level,i1_0.status,i1_0.stem,i1_0.title,i1_0.unit_id,i1_0.updated_at from item i1_0 join unit u1_0 on u1_0.id=i1_0.unit_id where u1_0.code='M5-2' and i1_0.status='A' order by i1_0.id;
+# Time: 260916  2:02:42
+# User@Host: app[app] @  [10.20.1.21]
+# Thread_id: 48102  Schema: itembank  QC_hit: No
+# Query_time: 2.041903  Lock_time: 0.912004  Rows_sent: 5  Rows_examined: 5
+# Rows_affected: 0  Bytes_sent: 598
+SET timestamp=1789524160;
+select u1_0.id,u1_0.code,u1_0.grade,u1_0.name from unit u1_0 order by u1_0.code;
+# Time: 260916  5:37:52
+# User@Host: app[app] @  [10.20.1.21]
+# Thread_id: 48211  Schema: itembank  QC_hit: No
+# Query_time: 9.812417  Lock_time: 0.000071  Rows_sent: 4  Rows_examined: 1284310
+# Rows_affected: 0  Bytes_sent: 612
+SET timestamp=1789537062;
+select s1_0.id,s1_0.distribution_id,s1_0.score,s1_0.student_id,s1_0.submitted_at from submission s1_0 where s1_0.distribution_id=5 order by s1_0.student_id;

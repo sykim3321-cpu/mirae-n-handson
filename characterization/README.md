@@ -7,7 +7,7 @@
 
 ```bash
 cd characterization
-npm install                                  # 처음 한 번
+npm ci                                       # 처음 한 번 (lock 파일을 고치지 않음)
 npm run baseline -- <모듈명>                  # 스냅샷 새로 찍기 (= vitest run -u tests/<모듈명>.test.js)
 npm test                                     # 스냅샷과 비교 (대상: 레거시 기본 주소)
 TARGET_BASE_URL=http://localhost:8080 npm test   # 대상만 새 API 로 바꿔 같은 테스트를 돌린다

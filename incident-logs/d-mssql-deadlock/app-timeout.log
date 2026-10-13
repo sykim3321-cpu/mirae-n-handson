@@ -1,0 +1,261 @@
+2026-09-18 15:30:23.608 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 240ms student=STU-1014
+2026-09-18 15:30:59.226 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 230ms user=kim.teacher@example.com
+2026-09-18 15:31:23.980 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 193ms student=STU-1030
+2026-09-18 15:31:42.899 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 349ms student=STU-1011
+2026-09-18 15:31:52.021 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 394ms student=STU-1018
+2026-09-18 15:32:05.350 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 234ms student=STU-1003
+2026-09-18 15:32:20.310 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 301ms student=STU-1024
+2026-09-18 15:32:37.376 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 168ms student=STU-1004
+2026-09-18 15:32:54.280 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 228ms student=STU-1008
+2026-09-18 15:32:57.062 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 182ms student=STU-1013
+2026-09-18 15:32:58.263 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 95ms user=choi.teacher@example.com
+2026-09-18 15:33:02.665 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 363ms student=STU-1008
+2026-09-18 15:33:17.745 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 172ms student=STU-1030
+2026-09-18 15:33:51.794 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 204ms user=kim.teacher@example.com
+2026-09-18 15:34:15.763 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 355ms student=STU-1022
+2026-09-18 15:35:30.507 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 216ms student=STU-1016
+2026-09-18 15:35:37.042 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 280ms student=STU-1005
+2026-09-18 15:35:41.416 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 139ms user=choi.teacher@example.com
+2026-09-18 15:35:49.239 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 195ms user=choi.teacher@example.com
+2026-09-18 15:36:01.624 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 327ms student=STU-1010
+2026-09-18 15:36:13.875 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 166ms student=STU-1013
+2026-09-18 15:36:18.452 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 234ms student=STU-1027
+2026-09-18 15:36:33.435 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 212ms student=STU-1015
+2026-09-18 15:37:16.903 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 361ms student=STU-1026
+2026-09-18 15:37:21.177 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 375ms student=STU-1013
+2026-09-18 15:37:24.588 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 354ms student=STU-1013
+2026-09-18 15:37:34.923 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 214ms user=choi.teacher@example.com
+2026-09-18 15:38:01.726 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 106ms user=kim.teacher@example.com
+2026-09-18 15:38:28.070 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 302ms student=STU-1026
+2026-09-18 15:38:48.385 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 190ms student=STU-1020
+2026-09-18 15:38:50.181 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 286ms student=STU-1012
+2026-09-18 15:39:20.306 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 268ms student=STU-1020
+2026-09-18 15:39:26.102 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 384ms student=STU-1024
+2026-09-18 15:39:38.500 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 166ms student=STU-1008
+2026-09-18 15:39:40.861 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 410ms student=STU-1010
+2026-09-18 15:40:17.275 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 197ms user=choi.teacher@example.com
+2026-09-18 15:40:17.678 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 342ms student=STU-1008
+2026-09-18 15:40:40.352 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 324ms student=STU-1009
+2026-09-18 15:40:49.885 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 252ms student=STU-1016
+2026-09-18 15:41:07.885 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 195ms student=STU-1014
+2026-09-18 15:41:12.262 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 155ms student=STU-1025
+2026-09-18 15:41:23.237 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 363ms student=STU-1017
+2026-09-18 15:41:33.998 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 417ms student=STU-1012
+2026-09-18 15:42:07.175 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 167ms student=STU-1006
+2026-09-18 15:42:26.110 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 248ms user=choi.teacher@example.com
+2026-09-18 15:42:29.370 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 347ms student=STU-1010
+2026-09-18 15:42:52.400 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 296ms student=STU-1025
+2026-09-18 15:42:57.120 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 141ms student=STU-1009
+2026-09-18 15:43:25.311 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 204ms student=STU-1012
+2026-09-18 15:43:45.718 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 143ms student=STU-1011
+2026-09-18 15:44:13.882 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 251ms user=kim.teacher@example.com
+2026-09-18 15:44:29.947 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 250ms student=STU-1024
+2026-09-18 15:44:31.469 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 222ms student=STU-1013
+2026-09-18 15:45:07.456 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 236ms student=STU-1017
+2026-09-18 15:45:07.545 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 397ms student=STU-1011
+2026-09-18 15:45:23.579 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 141ms student=STU-1027
+2026-09-18 15:45:40.246 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 239ms student=STU-1010
+2026-09-18 15:46:24.888 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 367ms student=STU-1006
+2026-09-18 15:46:40.521 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 343ms student=STU-1012
+2026-09-18 15:46:45.309 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 206ms student=STU-1006
+2026-09-18 15:46:47.431 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 316ms student=STU-1030
+2026-09-18 15:48:26.065 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 404ms student=STU-1029
+2026-09-18 15:48:51.603 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2837ms student=STU-1017
+2026-09-18 15:48:55.663 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 361ms student=STU-1024
+2026-09-18 15:49:14.400 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 139ms user=kim.teacher@example.com
+2026-09-18 15:49:41.973 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 200ms student=STU-1010
+2026-09-18 15:50:02.196 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2026ms student=STU-1018
+2026-09-18 15:50:47.961 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 159ms user=choi.teacher@example.com
+2026-09-18 15:50:56.723 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2402ms student=STU-1015
+2026-09-18 15:51:13.793 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 2283ms user=choi.teacher@example.com
+2026-09-18 15:51:22.477 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 119ms user=choi.teacher@example.com
+2026-09-18 15:52:24.599 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 160ms student=STU-1030
+2026-09-18 15:52:35.346 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2721ms student=STU-1016
+2026-09-18 15:52:41.325 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 313ms student=STU-1025
+2026-09-18 15:53:01.257 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 317ms student=STU-1025
+2026-09-18 15:53:29.497 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 140ms student=STU-1030
+2026-09-18 15:53:37.709 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 189ms student=STU-1022
+2026-09-18 15:53:43.635 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 362ms student=STU-1027
+2026-09-18 15:54:05.481 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 210ms student=STU-1029
+2026-09-18 15:54:13.066 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 256ms student=STU-1029
+2026-09-18 15:54:19.872 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 146ms student=STU-1001
+2026-09-18 15:54:40.628 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 1345ms student=STU-1011
+2026-09-18 15:54:47.586 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 329ms student=STU-1002
+2026-09-18 15:55:20.453 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3989ms student=STU-1013 slow_call=true
+2026-09-18 15:55:23.729 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 271ms student=STU-1010
+2026-09-18 15:55:45.482 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 7072ms student=STU-1020 slow_call=true
+2026-09-18 15:56:13.027 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 9434ms student=STU-1017 slow_call=true
+2026-09-18 15:56:15.215 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2516ms student=STU-1012
+2026-09-18 15:57:01.780 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 368ms student=STU-1002
+2026-09-18 15:57:02.749 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 6652ms user=kim.teacher@example.com slow_call=true
+2026-09-18 15:57:07.360 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 217ms student=STU-1008
+2026-09-18 15:57:10.815 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 7969ms student=STU-1015 slow_call=true
+2026-09-18 15:57:15.699 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 5699ms student=STU-1014 slow_call=true
+2026-09-18 15:57:22.030 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 258ms student=STU-1030
+2026-09-18 15:57:29.464 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 5411ms student=STU-1014 slow_call=true
+2026-09-18 15:57:45.701 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 201ms student=STU-1001
+2026-09-18 15:58:17.200 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 242ms student=STU-1029
+2026-09-18 15:58:33.174 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 216ms student=STU-1029
+2026-09-18 15:58:33.813 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 6459ms student=STU-1014 slow_call=true
+2026-09-18 15:58:46.710 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 6710ms user=kim.teacher@example.com slow_call=true
+2026-09-18 15:58:51.327 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=choi.teacher@example.com
+2026-09-18 15:59:11.063 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4959ms student=STU-1019 slow_call=true
+2026-09-18 15:59:15.798 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8827ms student=STU-1011 slow_call=true
+2026-09-18 15:59:21.836 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 385ms student=STU-1007
+2026-09-18 15:59:23.870 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 217ms student=STU-1005
+2026-09-18 15:59:45.943 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 15:59:55.334 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 414ms student=STU-1029
+2026-09-18 16:00:17.627 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2443ms student=STU-1018
+2026-09-18 16:00:20.647 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 277ms student=STU-1007
+2026-09-18 16:00:38.258 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 2002ms user=kim.teacher@example.com
+2026-09-18 16:00:40.716 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:00:47.293 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 9359ms student=STU-1016 slow_call=true
+2026-09-18 16:00:49.454 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 413ms student=STU-1028
+2026-09-18 16:00:52.210 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4382ms student=STU-1018 slow_call=true
+2026-09-18 16:01:08.858 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 1968ms student=STU-1013
+2026-09-18 16:01:16.657 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2769ms student=STU-1014
+2026-09-18 16:02:14.080 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:02:33.360 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1012
+2026-09-18 16:02:38.947 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 385ms student=STU-1004
+2026-09-18 16:02:40.294 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:02:41.590 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 502 Bad Gateway in 4256ms user=kim.teacher@example.com msg="Transaction (Process ID 58) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:03:07.094 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2419ms student=STU-1014
+2026-09-18 16:03:43.292 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 6586ms student=STU-1011 slow_call=true
+2026-09-18 16:03:46.254 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:04:09.041 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8162ms student=STU-1014 slow_call=true
+2026-09-18 16:04:42.679 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 5621ms user=choi.teacher@example.com slow_call=true
+2026-09-18 16:05:04.745 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 277ms student=STU-1006
+2026-09-18 16:05:12.260 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 502 Bad Gateway in 3882ms user=kim.teacher@example.com msg="Transaction (Process ID 63) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:05:12.280 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 234ms student=STU-1007
+2026-09-18 16:05:22.844 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8869ms student=STU-1014 slow_call=true
+2026-09-18 16:05:32.543 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 325ms student=STU-1001
+2026-09-18 16:05:47.060 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 9281ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:05:52.587 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 6312ms student=STU-1020 slow_call=true
+2026-09-18 16:05:54.692 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3493ms student=STU-1014 slow_call=true
+2026-09-18 16:06:31.354 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 118ms user=choi.teacher@example.com
+2026-09-18 16:06:39.287 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1020
+2026-09-18 16:06:42.741 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1018
+2026-09-18 16:06:42.807 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3307ms student=STU-1014 slow_call=true
+2026-09-18 16:06:42.829 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 350ms student=STU-1002
+2026-09-18 16:07:07.473 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:07:26.490 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1018
+2026-09-18 16:07:29.005 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4209ms student=STU-1014 slow_call=true
+2026-09-18 16:07:55.680 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 347ms student=STU-1025
+2026-09-18 16:07:58.927 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 502 Bad Gateway in 2341ms student=STU-1014 msg="Transaction (Process ID 58) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:08:14.722 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1012
+2026-09-18 16:08:24.181 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 3338ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:08:25.937 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 177ms student=STU-1021
+2026-09-18 16:08:53.071 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4955ms student=STU-1014 slow_call=true
+2026-09-18 16:09:13.792 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 369ms student=STU-1028
+2026-09-18 16:09:22.261 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 243ms user=kim.teacher@example.com
+2026-09-18 16:10:10.305 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8145ms student=STU-1014 slow_call=true
+2026-09-18 16:10:10.873 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3961ms student=STU-1016 slow_call=true
+2026-09-18 16:10:34.360 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 7014ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:11:12.042 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 6971ms student=STU-1015 slow_call=true
+2026-09-18 16:11:21.376 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:11:30.130 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 502 Bad Gateway in 3533ms user=kim.teacher@example.com msg="Transaction (Process ID 71) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:12:23.845 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:12:30.353 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 163ms user=kim.teacher@example.com
+2026-09-18 16:12:30.635 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:12:55.826 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3182ms student=STU-1018 slow_call=true
+2026-09-18 16:13:03.570 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 278ms student=STU-1008
+2026-09-18 16:13:07.236 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 231ms student=STU-1023
+2026-09-18 16:13:22.219 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:13:41.867 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3390ms student=STU-1018 slow_call=true
+2026-09-18 16:13:46.840 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2657ms student=STU-1014
+2026-09-18 16:14:02.670 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 502 Bad Gateway in 3668ms user=kim.teacher@example.com msg="Transaction (Process ID 74) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:14:06.690 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 283ms student=STU-1003
+2026-09-18 16:14:29.880 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 5736ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:14:35.184 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 5891ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:14:39.729 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 7618ms student=STU-1017 slow_call=true
+2026-09-18 16:14:54.739 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3028ms student=STU-1014 slow_call=true
+2026-09-18 16:14:58.118 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8312ms student=STU-1017 slow_call=true
+2026-09-18 16:15:08.621 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4914ms student=STU-1018 slow_call=true
+2026-09-18 16:15:10.518 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3561ms student=STU-1014 slow_call=true
+2026-09-18 16:15:55.309 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8680ms student=STU-1014 slow_call=true
+2026-09-18 16:16:08.107 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:16:23.440 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:17:02.039 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 3866ms student=STU-1017 slow_call=true
+2026-09-18 16:17:10.017 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 5245ms student=STU-1014 slow_call=true
+2026-09-18 16:17:14.725 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 407ms student=STU-1022
+2026-09-18 16:17:27.289 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1015
+2026-09-18 16:17:43.347 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2774ms student=STU-1012
+2026-09-18 16:17:43.408 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 152ms user=choi.teacher@example.com
+2026-09-18 16:17:56.765 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2100ms student=STU-1014
+2026-09-18 16:17:59.181 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:18:01.830 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 240ms student=STU-1001
+2026-09-18 16:18:06.844 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 221ms user=kim.teacher@example.com
+2026-09-18 16:18:07.088 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 170ms user=kim.teacher@example.com
+2026-09-18 16:18:46.977 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 7688ms student=STU-1015 slow_call=true
+2026-09-18 16:18:47.450 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 502 Bad Gateway in 4316ms student=STU-1014 msg="Transaction (Process ID 74) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:18:58.799 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8592ms student=STU-1014 slow_call=true
+2026-09-18 16:19:13.796 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4774ms student=STU-1020 slow_call=true
+2026-09-18 16:19:17.363 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:19:19.205 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 242ms user=choi.teacher@example.com
+2026-09-18 16:19:21.065 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 276ms student=STU-1029
+2026-09-18 16:19:27.402 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 179ms student=STU-1023
+2026-09-18 16:19:37.964 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 191ms user=kim.teacher@example.com
+2026-09-18 16:19:58.966 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 4667ms user=kim.teacher@example.com slow_call=true
+2026-09-18 16:20:03.216 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:20:16.662 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1011
+2026-09-18 16:20:32.623 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2757ms student=STU-1017
+2026-09-18 16:21:10.570 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) student=STU-1014
+2026-09-18 16:21:18.659 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 207ms student=STU-1026
+2026-09-18 16:21:33.516 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 2312ms student=STU-1014
+2026-09-18 16:22:10.327 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 152ms user=choi.teacher@example.com
+2026-09-18 16:22:14.130 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 145ms student=STU-1021
+2026-09-18 16:22:17.240 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8839ms student=STU-1014 slow_call=true
+2026-09-18 16:22:19.253 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> timeout after 15000ms (java.net.SocketTimeoutException: Read timed out) user=kim.teacher@example.com
+2026-09-18 16:22:57.254 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 9046ms student=STU-1017 slow_call=true
+2026-09-18 16:23:14.645 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 8078ms student=STU-1014 slow_call=true
+2026-09-18 16:23:15.980 +0900 ERROR [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 502 Bad Gateway in 4357ms user=kim.teacher@example.com msg="Transaction (Process ID 66) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction."
+2026-09-18 16:23:30.217 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 140ms user=choi.teacher@example.com
+2026-09-18 16:23:43.569 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 6913ms student=STU-1012 slow_call=true
+2026-09-18 16:24:29.031 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 9280ms student=STU-1011 slow_call=true
+2026-09-18 16:24:29.502 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4251ms student=STU-1014 slow_call=true
+2026-09-18 16:24:47.295 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 5476ms student=STU-1013 slow_call=true
+2026-09-18 16:25:50.720 +0900 WARN  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 4771ms student=STU-1016 slow_call=true
+2026-09-18 16:26:01.911 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 207ms student=STU-1030
+2026-09-18 16:26:12.444 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 272ms student=STU-1026
+2026-09-18 16:26:21.036 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 152ms student=STU-1004
+2026-09-18 16:26:22.392 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 290ms student=STU-1009
+2026-09-18 16:27:35.491 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 191ms user=kim.teacher@example.com
+2026-09-18 16:27:45.179 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 372ms student=STU-1002
+2026-09-18 16:27:47.743 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 276ms student=STU-1020
+2026-09-18 16:27:47.946 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 207ms student=STU-1011
+2026-09-18 16:28:10.709 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 254ms student=STU-1016
+2026-09-18 16:28:15.108 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 296ms student=STU-1006
+2026-09-18 16:28:15.728 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 195ms user=kim.teacher@example.com
+2026-09-18 16:28:47.634 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 268ms student=STU-1005
+2026-09-18 16:29:02.452 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 409ms student=STU-1020
+2026-09-18 16:29:33.477 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 233ms user=choi.teacher@example.com
+2026-09-18 16:29:49.531 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 269ms student=STU-1029
+2026-09-18 16:29:54.830 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 245ms student=STU-1018
+2026-09-18 16:30:24.246 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 177ms student=STU-1015
+2026-09-18 16:30:58.120 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 258ms user=choi.teacher@example.com
+2026-09-18 16:31:15.284 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 210ms student=STU-1016
+2026-09-18 16:31:24.264 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 387ms student=STU-1010
+2026-09-18 16:31:29.810 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 230ms student=STU-1004
+2026-09-18 16:31:31.146 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 273ms student=STU-1011
+2026-09-18 16:31:37.168 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 218ms user=kim.teacher@example.com
+2026-09-18 16:32:12.941 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C3 -> 200 OK in 138ms user=choi.teacher@example.com
+2026-09-18 16:33:13.914 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 231ms student=STU-1014
+2026-09-18 16:33:49.578 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 335ms student=STU-1024
+2026-09-18 16:33:56.061 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 159ms user=choi.teacher@example.com
+2026-09-18 16:33:57.262 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 340ms student=STU-1012
+2026-09-18 16:35:02.053 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 288ms student=STU-1016
+2026-09-18 16:35:11.359 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 384ms student=STU-1027
+2026-09-18 16:35:16.039 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 175ms student=STU-1012
+2026-09-18 16:35:19.689 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 181ms student=STU-1004
+2026-09-18 16:35:41.312 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 163ms student=STU-1017
+2026-09-18 16:37:16.733 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C2 -> 200 OK in 215ms user=kim.teacher@example.com
+2026-09-18 16:37:38.444 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 324ms student=STU-1012
+2026-09-18 16:37:56.044 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 155ms student=STU-1019
+2026-09-18 16:38:07.331 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 379ms student=STU-1015
+2026-09-18 16:38:20.616 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C1 -> 200 OK in 179ms student=STU-1003
+2026-09-18 16:38:35.699 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 240ms student=STU-1017
+2026-09-18 16:38:41.892 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 347ms student=STU-1030
+2026-09-18 16:39:18.641 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 177ms student=STU-1016
+2026-09-18 16:39:46.835 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C3 -> 200 OK in 273ms student=STU-1028
+2026-09-18 16:40:32.478 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/report?class_id=C1 -> 200 OK in 178ms user=choi.teacher@example.com
+2026-09-18 16:40:38.270 +0900 INFO  [grade-client] GET http://10.20.4.15:8083/aggregate?class_id=C2 -> 200 OK in 348ms student=STU-1020

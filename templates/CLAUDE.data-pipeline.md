@@ -27,7 +27,7 @@ head -5 pipeline-samples/datamart-counts.csv                      # 머리글 ·
 awk -F, 'NR>1 && $2=="load_datamart" {print $1, $3}' pipeline-samples/datamart-counts.csv
 ```
 
-점검 기준(네 가지, 순서 고정):
+점검 기준(순서 고정):
 1. **실행 여부** — 매일 돌아야 하는 job 이 그날 로그에 없거나, 시작만 있고 종료 기록이 없으면 이상.
 2. **중복 실행** — 같은 날 같은 job 의 성공 기록이 두 번 이상이면 이상(적재 건수 2배의 원인).
 3. **적재 건수** — 0건이거나 직전 7일 평균에서 30% 넘게 벗어나면 이상. 평균은 `awk` 로 계산하고 계산식을 답변에 적는다.

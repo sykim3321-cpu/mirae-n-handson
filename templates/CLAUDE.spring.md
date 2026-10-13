@@ -36,7 +36,7 @@ cd modern/api && ./gradlew build       # 테스트 포함 전체 빌드
 ### 테스트
 - **동작을 바꾸는 변경에는 대응하는 테스트가 있어야 한다.** 새 public 서비스 메서드 · 새 엔드포인트마다 테스트 1개 이상.
 - 컨트롤러는 `@WebMvcTest` 슬라이스 테스트, 서비스는 Mockito 단위 테스트, 리포지토리 쿼리는 `@DataJpaTest`(H2) 로 검증한다.
-- 테스트 이름은 `메서드명_상황_기대결과` 형식(예: `search_levelOmitted_excludesLevel5`).
+- 테스트 메서드 이름은 확인하는 동작이 드러나는 camelCase(예: `rejectsOtherOrigins`)로 짓고, `@DisplayName` 에 한국어 설명을 붙인다. 기존 테스트의 형식을 따른다.
 - 스냅샷 · 동작 보존 테스트(`characterization/`)를 깨뜨리는 변경은 먼저 사람에게 알린다.
 
 ### 이름 · 형식
@@ -49,7 +49,7 @@ cd modern/api && ./gradlew build       # 테스트 포함 전체 빌드
 - `legacy/` 는 분석 · 이관 대상이다. 허락 없이 수정하지 않는다.
 - **DB 스키마 변경 금지**: 테이블 · 컬럼 추가 · 삭제, 인덱스 변경, 마이그레이션 파일 추가는 먼저 사람에게 묻는다. 시드 데이터도 마찬가지다.
 - 의존성 추가(`build.gradle` 의 `dependencies` 변경)는 먼저 묻는다. 이유와 대안을 함께 적는다.
-- `application.yml` 의 DB 접속 정보 · 커넥션 풀 설정을 바꾸지 않는다. 비밀값을 코드나 설정 파일에 리터럴로 넣지 않는다.
+- `application.yml` 의 DB 접속 정보 · 커넥션 풀 설정을 바꾸지 않는다. 실제 비밀값(운영 계정 · 토큰 · 키)을 코드나 설정 파일에 리터럴로 넣지 않는다. 실습용 더미 값(`application.yml` 의 `app-pass`)은 예외다.
 - 운영 DB 호스트(`prod-db` 등)에 접속하는 명령 · 설정을 만들지 않는다.
 - `@Transactional` 안에서 외부 HTTP 호출이나 긴 루프를 돌리지 않는다.
 - 요청받지 않은 파일을 "정리" 명목으로 고치지 않는다. 포맷팅 · import 정리도 요청 범위 안의 파일에서만 한다.
@@ -59,13 +59,13 @@ cd modern/api && ./gradlew build       # 테스트 포함 전체 빌드
 ```
 modern/api/src/main/java/com/example/
 ├── item/          문항 · 단원 · 태그 (ItemController, ItemService, ItemRepository, Item, Unit)
-├── assignment/    과제 배포 (골격만 있음)
+├── assignment/    과제 배포 · 재배포 · 학급 리포트 (Distribution*, Report*)
 └── common/        @ControllerAdvice, 공통 응답 · 예외
 modern/api/src/main/resources/application.yml       기본 프로필 = 로컬 MariaDB, 커넥션 풀 설정 포함
 modern/api/src/test/resources/application-test.yml  테스트 프로필 = H2 (MariaDB 모드)
 ```
 
-- 기존 엔드포인트: `GET /api/units`, `GET /api/units/{code}/items`, `GET /api/items/{id}`. 새 엔드포인트는 `/api/<도메인 복수형>` 아래에 둔다.
+- 기존 엔드포인트: `GET /api/units`, `GET /api/units/{code}/items`, `GET /api/items/{id}`, `GET /api/distributions/{id}`, `POST /api/distributions/{id}/redistribute`, `GET /api/classes/{id}/report`. 새 엔드포인트는 `/api/<도메인 복수형>` 아래에 둔다.
 - 공개 문항만 노출한다(`status = 'A'`). 삭제 플래그가 아니라 상태 코드로 판단한다.
 - 새 조회 API 는 컨트롤러 → 서비스 → 리포지토리 세 파일과 테스트를 같은 도메인 패키지에 만든다.
 - 레거시 규칙을 옮길 때는 근거를 `파일:줄번호` 로 답변에 적는다(예: `legacy/item-bank-php/search.php:214`).

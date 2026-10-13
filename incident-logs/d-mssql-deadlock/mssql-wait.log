@@ -1,0 +1,304 @@
+2026-09-18 15:30:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:31:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:32:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:33:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:34:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:35:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:36:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:37:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:38:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:39:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:40:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:41:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:42:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:43:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:44:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:45:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:46:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:47:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 15:48:12.40 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=2227 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:48:58.08 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=2295 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:49:38.08 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=1502 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:50:09.04 monitor     lock_wait session_id=58 blocked_by=74 wait_type=LCK_M_U wait_ms=2888 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:50:45.52 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=2583 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:51:26.10 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=4303 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:51:57.25 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=3024 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:52:18.61 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=3829 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:52:48.81 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=3898 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:53:32.98 monitor     lock_wait session_id=58 blocked_by=63 wait_type=LCK_M_U wait_ms=4056 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:54:23.46 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=3453 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:55:14.74 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=3750 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:55:41.93 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=5139 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:56:30.09 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=7576 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:57:24.03 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=3107 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:58:12.44 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=4419 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:58:32.03 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=7090 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:58:51.87 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=6231 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:59:10.76 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=4935 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:59:29.49 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=7788 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:59:45.46 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=7074 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 15:59:53.47 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=6174 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:00:04.19 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=5320 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:00:20.49 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=3730 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:00:29.46 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=5176 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:00:45.80 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=6211 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:00:59.22 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=8753 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:01:09.19 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=4252 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:01:25.30 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=5865 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:01:46.75 monitor     lock_wait session_id=71 blocked_by=66 wait_type=LCK_M_U wait_ms=7088 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:02:06.83 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=8421 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:02:22.89 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=9534 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:02:41.53 spid22s     deadlock-list
+2026-09-18 16:02:41.53 spid22s      deadlock victim=process2b950298
+2026-09-18 16:02:41.53 spid22s       process-list
+2026-09-18 16:02:41.53 spid22s        process id=process27a1e2f8 taskpriority=0 logused=10872 waitresource=KEY: 7:72057594044022784 (e04c4bdee93b) waittime=3928 lockMode=U schedulerid=2 kpid=109 status=suspended spid=63 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:02:37 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:02:41.53 spid22s         executionStack
+2026-09-18 16:02:41.53 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x03000700e835bc7c
+2026-09-18 16:02:41.53 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:02:41.53 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:02:41.53 spid22s        process id=process2b950298 taskpriority=0 logused=1073 waitresource=KEY: 7:72057594044153856 (d8d2a363aba6) waittime=2780 lockMode=U schedulerid=1 kpid=119 status=suspended spid=58 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:02:38 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:02:41.53 spid22s         executionStack
+2026-09-18 16:02:41.53 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x030007007fb4eef6
+2026-09-18 16:02:41.53 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:02:41.53 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:02:41.53 spid22s       resource-list
+2026-09-18 16:02:41.53 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:02:41.53 spid22s         owner-list  owner id=process27a1e2f8 mode=X
+2026-09-18 16:02:41.53 spid22s         waiter-list waiter id=process2b950298 mode=U requestType=wait
+2026-09-18 16:02:41.53 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:02:41.53 spid22s         owner-list  owner id=process2b950298 mode=X
+2026-09-18 16:02:41.53 spid22s         waiter-list waiter id=process27a1e2f8 mode=U requestType=wait
+2026-09-18 16:02:41.54 spid58      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 58) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:02:43.68 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=5506 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:03:05.24 monitor     lock_wait session_id=74 blocked_by=58 wait_type=LCK_M_U wait_ms=6933 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:03:24.61 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=8364 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:03:38.23 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=10885 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:03:47.96 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=6419 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:04:03.87 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=4450 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:04:19.72 monitor     lock_wait session_id=71 blocked_by=66 wait_type=LCK_M_U wait_ms=3949 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:04:34.82 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=7393 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:04:56.08 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=6612 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:05:06.42 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=8660 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:05:12.20 spid22s     deadlock-list
+2026-09-18 16:05:12.20 spid22s      deadlock victim=process2b9530c8
+2026-09-18 16:05:12.20 spid22s       process-list
+2026-09-18 16:05:12.20 spid22s        process id=process27a20208 taskpriority=0 logused=15450 waitresource=KEY: 7:72057594044022784 (c540dd7e321e) waittime=3639 lockMode=U schedulerid=2 kpid=98 status=suspended spid=71 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:05:08 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:05:12.20 spid22s         executionStack
+2026-09-18 16:05:12.20 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x03000700a59f9bbb
+2026-09-18 16:05:12.20 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:05:12.20 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:05:12.20 spid22s        process id=process2b9530c8 taskpriority=0 logused=1355 waitresource=KEY: 7:72057594044153856 (8f7913333c67) waittime=4005 lockMode=U schedulerid=1 kpid=182 status=suspended spid=63 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:05:09 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:05:12.20 spid22s         executionStack
+2026-09-18 16:05:12.20 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x0300070036e211d9
+2026-09-18 16:05:12.20 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:05:12.20 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:05:12.20 spid22s       resource-list
+2026-09-18 16:05:12.20 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:05:12.20 spid22s         owner-list  owner id=process27a20208 mode=X
+2026-09-18 16:05:12.20 spid22s         waiter-list waiter id=process2b9530c8 mode=U requestType=wait
+2026-09-18 16:05:12.20 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:05:12.20 spid22s         owner-list  owner id=process2b9530c8 mode=X
+2026-09-18 16:05:12.20 spid22s         waiter-list waiter id=process27a20208 mode=U requestType=wait
+2026-09-18 16:05:12.21 spid63      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 63) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:05:17.58 monitor     lock_wait session_id=71 blocked_by=66 wait_type=LCK_M_U wait_ms=5628 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:05:30.99 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=6076 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:05:42.50 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=8398 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:06:00.10 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=4450 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:06:09.97 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=5833 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:06:23.39 monitor     lock_wait session_id=58 blocked_by=63 wait_type=LCK_M_U wait_ms=6437 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:06:32.48 monitor     lock_wait session_id=58 blocked_by=63 wait_type=LCK_M_U wait_ms=9200 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:06:54.20 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=5280 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:07:12.04 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=4400 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:07:33.20 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=10888 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:07:52.69 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=10074 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:07:58.84 spid22s     deadlock-list
+2026-09-18 16:07:58.84 spid22s      deadlock victim=process27a22118
+2026-09-18 16:07:58.84 spid22s       process-list
+2026-09-18 16:07:58.84 spid22s        process id=process27a22118 taskpriority=0 logused=10628 waitresource=KEY: 7:72057594044022784 (8f0bde757ea8) waittime=3525 lockMode=U schedulerid=2 kpid=151 status=suspended spid=58 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:07:55 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:07:58.84 spid22s         executionStack
+2026-09-18 16:07:58.84 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x030007003e15c81b
+2026-09-18 16:07:58.84 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:07:58.84 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:07:58.84 spid22s        process id=process2b955ef8 taskpriority=0 logused=1124 waitresource=KEY: 7:72057594044153856 (233cf5b15ef0) waittime=4741 lockMode=U schedulerid=1 kpid=106 status=suspended spid=66 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:07:55 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:07:58.84 spid22s         executionStack
+2026-09-18 16:07:58.84 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x030007006898b5ce
+2026-09-18 16:07:58.84 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:07:58.84 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:07:58.84 spid22s       resource-list
+2026-09-18 16:07:58.84 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:07:58.84 spid22s         owner-list  owner id=process27a22118 mode=X
+2026-09-18 16:07:58.84 spid22s         waiter-list waiter id=process2b955ef8 mode=U requestType=wait
+2026-09-18 16:07:58.84 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:07:58.84 spid22s         owner-list  owner id=process2b955ef8 mode=X
+2026-09-18 16:07:58.84 spid22s         waiter-list waiter id=process27a22118 mode=U requestType=wait
+2026-09-18 16:07:58.85 spid58      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 58) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:08:11.62 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=6592 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:08:22.23 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=10917 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:08:37.41 monitor     lock_wait session_id=58 blocked_by=63 wait_type=LCK_M_U wait_ms=5738 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:08:54.16 monitor     lock_wait session_id=58 blocked_by=74 wait_type=LCK_M_U wait_ms=3649 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:09:12.54 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=7885 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:09:33.47 monitor     lock_wait session_id=58 blocked_by=63 wait_type=LCK_M_U wait_ms=6876 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:09:47.64 monitor     lock_wait session_id=71 blocked_by=63 wait_type=LCK_M_U wait_ms=10481 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:10:02.35 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=7060 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:10:14.85 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=9370 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:10:25.49 monitor     lock_wait session_id=71 blocked_by=66 wait_type=LCK_M_U wait_ms=7637 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:10:40.07 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=9332 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:10:58.20 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=6421 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:11:08.28 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=4633 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:11:23.44 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=3167 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:11:30.07 spid22s     deadlock-list
+2026-09-18 16:11:30.07 spid22s      deadlock victim=process2b958d28
+2026-09-18 16:11:30.07 spid22s       process-list
+2026-09-18 16:11:30.07 spid22s        process id=process27a24028 taskpriority=0 logused=9193 waitresource=KEY: 7:72057594044022784 (9de8df15bb68) waittime=4130 lockMode=U schedulerid=2 kpid=132 status=suspended spid=66 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:11:26 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:11:30.07 spid22s         executionStack
+2026-09-18 16:11:30.07 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x030007006e420ede
+2026-09-18 16:11:30.07 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:11:30.07 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:11:30.07 spid22s        process id=process2b958d28 taskpriority=0 logused=1031 waitresource=KEY: 7:72057594044153856 (6b4fe33a317f) waittime=4115 lockMode=U schedulerid=1 kpid=85 status=suspended spid=71 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:11:27 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:11:30.07 spid22s         executionStack
+2026-09-18 16:11:30.07 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x03000700f5fab922
+2026-09-18 16:11:30.07 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:11:30.07 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:11:30.07 spid22s       resource-list
+2026-09-18 16:11:30.07 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:11:30.07 spid22s         owner-list  owner id=process27a24028 mode=X
+2026-09-18 16:11:30.07 spid22s         waiter-list waiter id=process2b958d28 mode=U requestType=wait
+2026-09-18 16:11:30.07 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:11:30.07 spid22s         owner-list  owner id=process2b958d28 mode=X
+2026-09-18 16:11:30.07 spid22s         waiter-list waiter id=process27a24028 mode=U requestType=wait
+2026-09-18 16:11:30.08 spid71      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 71) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:11:33.08 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=5269 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:11:44.53 monitor     lock_wait session_id=58 blocked_by=74 wait_type=LCK_M_U wait_ms=3763 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:11:55.78 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=6546 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:12:07.05 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=10535 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:12:17.14 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=4530 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:12:38.86 monitor     lock_wait session_id=63 blocked_by=58 wait_type=LCK_M_U wait_ms=9721 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:12:53.92 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=8270 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:13:13.36 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=7344 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:13:26.68 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=3562 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:13:43.45 monitor     lock_wait session_id=74 blocked_by=71 wait_type=LCK_M_U wait_ms=4802 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:13:51.66 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=9592 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:14:02.61 spid22s     deadlock-list
+2026-09-18 16:14:02.61 spid22s      deadlock victim=process2b95bb58
+2026-09-18 16:14:02.61 spid22s       process-list
+2026-09-18 16:14:02.61 spid22s        process id=process27a25f38 taskpriority=0 logused=10338 waitresource=KEY: 7:72057594044022784 (677ddaa203c7) waittime=4504 lockMode=U schedulerid=2 kpid=100 status=suspended spid=63 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:13:59 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:14:02.61 spid22s         executionStack
+2026-09-18 16:14:02.61 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x0300070097691a79
+2026-09-18 16:14:02.61 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:14:02.61 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:14:02.61 spid22s        process id=process2b95bb58 taskpriority=0 logused=833 waitresource=KEY: 7:72057594044153856 (53bfd08e7866) waittime=3486 lockMode=U schedulerid=1 kpid=81 status=suspended spid=74 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:13:59 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:14:02.61 spid22s         executionStack
+2026-09-18 16:14:02.61 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x030007004960ad5a
+2026-09-18 16:14:02.61 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:14:02.61 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:14:02.61 spid22s       resource-list
+2026-09-18 16:14:02.61 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:14:02.61 spid22s         owner-list  owner id=process27a25f38 mode=X
+2026-09-18 16:14:02.61 spid22s         waiter-list waiter id=process2b95bb58 mode=U requestType=wait
+2026-09-18 16:14:02.61 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:14:02.61 spid22s         owner-list  owner id=process2b95bb58 mode=X
+2026-09-18 16:14:02.61 spid22s         waiter-list waiter id=process27a25f38 mode=U requestType=wait
+2026-09-18 16:14:02.62 spid74      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 74) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:14:08.37 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=8236 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:14:28.81 monitor     lock_wait session_id=71 blocked_by=63 wait_type=LCK_M_U wait_ms=5047 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:14:41.32 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=8838 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:14:53.99 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=7479 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:15:05.72 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=10103 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:15:21.02 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=5559 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:15:41.91 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=5781 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:15:57.69 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=4949 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:16:09.90 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=5789 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:16:26.38 monitor     lock_wait session_id=74 blocked_by=58 wait_type=LCK_M_U wait_ms=9239 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:16:39.91 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=7035 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:16:58.30 monitor     lock_wait session_id=71 blocked_by=66 wait_type=LCK_M_U wait_ms=9177 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:17:14.49 monitor     lock_wait session_id=63 blocked_by=74 wait_type=LCK_M_U wait_ms=9399 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:17:35.50 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=4991 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:17:52.96 monitor     lock_wait session_id=71 blocked_by=63 wait_type=LCK_M_U wait_ms=7507 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:18:10.62 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=5459 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:18:23.96 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=9416 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:18:37.71 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=3476 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:18:47.39 spid22s     deadlock-list
+2026-09-18 16:18:47.39 spid22s      deadlock victim=process27a27e48
+2026-09-18 16:18:47.39 spid22s       process-list
+2026-09-18 16:18:47.39 spid22s        process id=process27a27e48 taskpriority=0 logused=10021 waitresource=KEY: 7:72057594044022784 (e9f9ab644a0c) waittime=2511 lockMode=U schedulerid=2 kpid=109 status=suspended spid=74 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:18:43 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:18:47.39 spid22s         executionStack
+2026-09-18 16:18:47.39 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x03000700edbd89ad
+2026-09-18 16:18:47.39 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:18:47.39 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:18:47.39 spid22s        process id=process2b95e988 taskpriority=0 logused=1578 waitresource=KEY: 7:72057594044153856 (9fb819427898) waittime=4508 lockMode=U schedulerid=1 kpid=109 status=suspended spid=58 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:18:44 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:18:47.39 spid22s         executionStack
+2026-09-18 16:18:47.39 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x030007000c102c7e
+2026-09-18 16:18:47.39 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:18:47.39 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:18:47.39 spid22s       resource-list
+2026-09-18 16:18:47.39 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:18:47.39 spid22s         owner-list  owner id=process27a27e48 mode=X
+2026-09-18 16:18:47.39 spid22s         waiter-list waiter id=process2b95e988 mode=U requestType=wait
+2026-09-18 16:18:47.39 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:18:47.39 spid22s         owner-list  owner id=process2b95e988 mode=X
+2026-09-18 16:18:47.39 spid22s         waiter-list waiter id=process27a27e48 mode=U requestType=wait
+2026-09-18 16:18:47.40 spid74      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 74) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:18:56.82 monitor     lock_wait session_id=74 blocked_by=63 wait_type=LCK_M_U wait_ms=10087 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:19:09.85 monitor     lock_wait session_id=74 blocked_by=58 wait_type=LCK_M_U wait_ms=9685 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:19:31.25 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=6607 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:19:44.21 monitor     lock_wait session_id=71 blocked_by=63 wait_type=LCK_M_U wait_ms=7402 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:20:00.13 monitor     lock_wait session_id=71 blocked_by=63 wait_type=LCK_M_U wait_ms=10600 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:20:10.97 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=3326 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:20:19.84 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=5486 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:20:35.07 monitor     lock_wait session_id=66 blocked_by=58 wait_type=LCK_M_U wait_ms=9223 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:20:45.95 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=9454 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:21:01.48 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=8966 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:21:13.01 monitor     lock_wait session_id=58 blocked_by=71 wait_type=LCK_M_U wait_ms=9846 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:21:24.51 monitor     lock_wait session_id=66 blocked_by=63 wait_type=LCK_M_U wait_ms=8713 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:21:36.45 monitor     lock_wait session_id=63 blocked_by=71 wait_type=LCK_M_U wait_ms=10422 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:21:55.02 monitor     lock_wait session_id=71 blocked_by=74 wait_type=LCK_M_U wait_ms=3954 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:22:14.73 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=9479 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:22:35.04 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=8884 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:22:46.83 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=11148 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:22:57.88 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=6986 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:23:08.18 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=8094 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:23:15.92 spid22s     deadlock-list
+2026-09-18 16:23:15.92 spid22s      deadlock victim=process2b9617b8
+2026-09-18 16:23:15.92 spid22s       process-list
+2026-09-18 16:23:15.92 spid22s        process id=process27a29d58 taskpriority=0 logused=13764 waitresource=KEY: 7:72057594044022784 (f0e17de6a273) waittime=3203 lockMode=U schedulerid=2 kpid=187 status=suspended spid=71 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:23:12 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:23:15.92 spid22s         executionStack
+2026-09-18 16:23:15.92 spid22s          frame procname=grades.dbo.usp_aggregate_grades line=409 stmtstart=21446 stmtend=21688 sqlhandle=0x03000700a8e9423e
+2026-09-18 16:23:15.92 spid22s     UPDATE sub SET sub.aggregated_at = @now FROM dbo.submission AS sub JOIN #stu AS st ON st.student_id = sub.student_id
+2026-09-18 16:23:15.92 spid22s          inputbuf  EXEC dbo.usp_aggregate_grades @class_id = 'C2'
+2026-09-18 16:23:15.92 spid22s        process id=process2b9617b8 taskpriority=0 logused=943 waitresource=KEY: 7:72057594044153856 (48802005c02e) waittime=4027 lockMode=U schedulerid=1 kpid=130 status=suspended spid=66 sbid=0 ecid=0 priority=0 trancount=2 lasttranstarted=2026-09-18T16:23:13 clientapp=Microsoft JDBC Driver for SQL Server hostname=grade-app-1 loginname=app isolationlevel=read committed (2) currentdbname=grades
+2026-09-18 16:23:15.92 spid22s         executionStack
+2026-09-18 16:23:15.92 spid22s          frame procname=grades.dbo.usp_class_report line=172 stmtstart=9120 stmtend=9302 sqlhandle=0x030007009f1fc5c7
+2026-09-18 16:23:15.92 spid22s     UPDATE gs SET gs.last_report_at = @now FROM dbo.grade_summary AS gs WHERE gs.class_id = @class_id
+2026-09-18 16:23:15.92 spid22s          inputbuf  EXEC dbo.usp_class_report @class_id = 'C2'
+2026-09-18 16:23:15.92 spid22s       resource-list
+2026-09-18 16:23:15.92 spid22s        keylock hobtid=72057594044153856 dbid=7 objectname=grades.dbo.grade_summary indexname=PK_grade_summary mode=X
+2026-09-18 16:23:15.92 spid22s         owner-list  owner id=process27a29d58 mode=X
+2026-09-18 16:23:15.92 spid22s         waiter-list waiter id=process2b9617b8 mode=U requestType=wait
+2026-09-18 16:23:15.92 spid22s        keylock hobtid=72057594044022784 dbid=7 objectname=grades.dbo.submission indexname=PK_submission mode=X
+2026-09-18 16:23:15.92 spid22s         owner-list  owner id=process2b9617b8 mode=X
+2026-09-18 16:23:15.92 spid22s         waiter-list waiter id=process27a29d58 mode=U requestType=wait
+2026-09-18 16:23:15.93 spid66      Error: 1205, Severity: 13, State: 51. Transaction (Process ID 66) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+2026-09-18 16:23:28.74 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=4537 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:23:37.21 monitor     lock_wait session_id=71 blocked_by=58 wait_type=LCK_M_U wait_ms=4787 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:23:55.68 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=9350 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:24:04.01 monitor     lock_wait session_id=74 blocked_by=66 wait_type=LCK_M_U wait_ms=5511 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:24:12.67 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=6435 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:24:22.67 monitor     lock_wait session_id=66 blocked_by=71 wait_type=LCK_M_U wait_ms=7903 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:24:36.05 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=3432 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:24:51.88 monitor     lock_wait session_id=74 blocked_by=63 wait_type=LCK_M_U wait_ms=6685 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:25:06.43 monitor     lock_wait session_id=58 blocked_by=66 wait_type=LCK_M_U wait_ms=10278 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:25:24.55 monitor     lock_wait session_id=63 blocked_by=66 wait_type=LCK_M_U wait_ms=9401 object=grades.dbo.grade_summary index=PK_grade_summary proc=grades.dbo.usp_class_report line=172 blocker_proc=grades.dbo.usp_aggregate_grades host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:25:44.65 monitor     lock_wait session_id=66 blocked_by=74 wait_type=LCK_M_U wait_ms=5362 object=grades.dbo.submission index=PK_submission proc=grades.dbo.usp_aggregate_grades line=409 blocker_proc=grades.dbo.usp_class_report host=grade-app-1 client_addr=10.20.4.15 login=app
+2026-09-18 16:27:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:28:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:29:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:30:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:31:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:32:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:33:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:34:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:35:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:36:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:37:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:38:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0
+2026-09-18 16:39:00.03 monitor     sampler ok blocked_sessions=0 open_tran=0

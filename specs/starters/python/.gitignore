@@ -1,0 +1,14 @@
+# 가상환경 · 캐시
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 로컬 DB 파일(파일로 바꿔 쓸 때)
+*.db
+*.sqlite3
+
+# 에디터 · OS
+.idea/
+.vscode/
+.DS_Store

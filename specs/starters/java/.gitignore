@@ -1,0 +1,11 @@
+# 빌드 산출물
+build/
+.gradle/
+out/
+bin/
+
+# 에디터 · OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
