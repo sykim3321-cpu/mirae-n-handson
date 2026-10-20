@@ -1,0 +1,82 @@
+{
+  "permissions": {
+    "defaultMode": "default",
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard *)",
+      "Bash(*prod-db*)",
+      "Bash(*prod.db*)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(**/*.pem)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Edit(./secrets/**)",
+      "mcp__github__delete_file",
+      "mcp__github__merge_pull_request"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm ci *)",
+      "Bash(pip install *)",
+      "Bash(docker compose down *)",
+      "Bash(docker compose --profile * down *)",
+      "mcp__github__create_pull_request",
+      "mcp__github__push_files",
+      "mcp__dbhub",
+      "mcp__dbhub-mssql"
+    ],
+    "allow": [
+      "Bash(npm test *)",
+      "Bash(npm run test *)",
+      "Bash(npm run lint *)",
+      "Bash(npm run typecheck *)",
+      "Bash(npm run build *)",
+      "Bash(./gradlew test *)",
+      "Bash(./gradlew check *)",
+      "Bash(./gradlew build *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "WebFetch(domain:docs.spring.io)",
+      "WebFetch(domain:docs.gradle.org)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "mcp__github__get_file_contents",
+      "mcp__github__list_pull_requests",
+      "mcp__github__pull_request_read",
+      "mcp__github__list_issues",
+      "mcp__item-bank__search_items"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/scripts/hook-node.sh hooks/block-dangerous.mjs",
+            "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR\"/scripts/hook-node.sh hooks/secret-scan.mjs",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
